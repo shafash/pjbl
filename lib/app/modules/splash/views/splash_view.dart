@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kelas_pintar/app/routes/app_pages.dart';
+
+class SplashView extends StatelessWidget {
+  const SplashView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Delay 2 detik, lalu pindah ke halaman Welcome
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.offAllNamed(Routes.WELCOME);
+    });
+
+    return Scaffold(
+      backgroundColor: Colors.red,
+      body: Center(child: Image.asset('assets/splash.png', height: 150)),
+    );
+  }
+}
