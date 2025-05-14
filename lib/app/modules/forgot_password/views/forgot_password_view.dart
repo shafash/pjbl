@@ -30,6 +30,8 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
                 backgroundColor: const Color(0xFFB00000),
+                foregroundColor:
+                    Colors.white, // <-- ini bikin tulisan jadi putih
               ),
               child: const Text("Kirim Link Reset"),
             ),

@@ -8,6 +8,10 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const MATERI = _Paths.MATERI;
+  static const ENGLISH_SUBMATERI = _Paths.ENGLISH_SUBMATERI;
+  static const ENGLISH_ALPHABET = _Paths.ENGLISH_ALPHABET;
+  static const PROFIL = _Paths.PROFIL;
 }
 
 abstract class _Paths {
@@ -18,4 +22,8 @@ abstract class _Paths {
   static const REGISTER = '/register';
   static const FORGOT_PASSWORD = '/forgot-password';
   static const DASHBOARD = '/dashboard';
+  static const MATERI = '/materi';
+  static const ENGLISH_SUBMATERI = '/english-submateri';
+  static const ENGLISH_ALPHABET = '/english-alphabet';
+  static const PROFIL = '/profil';
 }

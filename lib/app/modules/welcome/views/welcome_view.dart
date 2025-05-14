@@ -1,59 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/welcome_controller.dart';
 
-class WelcomeView extends GetView<WelcomeController> {
+class WelcomeView extends StatelessWidget {
+  const WelcomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF7A1212), // merah gelap
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/splash.png', height: 250),
-            const SizedBox(height: 20),
-            const Text(
-              'KELAS PINTAR',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                letterSpacing: 2,
+      backgroundColor: Color((0xFF7A1212)),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset('assets/splash.png', height: 180),
+              const SizedBox(height: 16),
+              const Text(
+                "Belajar menjadi lebih menyenangkan",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 5),
-            const Text(
-              'belajar menjadi lebih menyenangkan',
-              style: TextStyle(fontSize: 14, color: Colors.white),
-            ),
-            const SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: const Color(0xFF7A1212),
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  onPressed: () {
-                    // TODO: Ganti ini ke halaman berikutnya (misal Login)
-                    Get.toNamed('/login');
-                  },
-                  child: const Text("Masuk untuk memulai"),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 12,
+                  ),
+                ),
+                onPressed: () => Get.offNamed('/login'),
+                child: const Text(
+                  "Masuk untuk memulai",
+                  style: TextStyle(fontSize: 16, color: Color((0xFF7A1212))),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   get: ^4.7.2
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,58 @@ flutter:
 
   assets:
     - assets/splash.png
+    - assets/icons/game.png
+    - assets/icons/materi.png
+    - assets/icons/quiz.png
+    - assets/icons/tugas.png
+    - assets/math.png
+    - assets/english.png
+    - assets/ipa.png
+    - assets/bahasa indonesia.png
+    - assets/world bingo.png
+    - assets/seni.png
+    - assets/profil.png
+    - assets/ips.png
+    - assets/alpabet.png
+    - assets/animals.png
+    - assets/clothes.png
+    - assets/color.png
+    - assets/flags.png
+    - assets/fruit.png
+    - assets/shapes.png
+    - assets/vegetables.png
+    - assets/alphabet/A.png
+    - assets/alphabet/B.png
+    - assets/alphabet/C.png 
+    - assets/alphabet/D.png 
+    - assets/alphabet/E.png 
+    - assets/alphabet/F.png 
+    - assets/alphabet/G.png 
+    - assets/alphabet/H.png 
+    - assets/alphabet/I.png 
+    - assets/alphabet/J.png 
+    - assets/alphabet/K.png 
+    - assets/alphabet/L.png 
+    - assets/alphabet/M.png 
+    - assets/alphabet/N.png 
+    - assets/alphabet/O.png 
+    - assets/alphabet/P.png 
+    - assets/alphabet/Q.png 
+    - assets/alphabet/R.png 
+    - assets/alphabet/S.png 
+    - assets/alphabet/T.png 
+    - assets/alphabet/U.png 
+    - assets/alphabet/V.png 
+    - assets/alphabet/W.png 
+    - assets/alphabet/X.png 
+    - assets/alphabet/Y.png 
+    - assets/alphabet/Z.png  
+
+
+  fonts:
+    - family: MochiyPopOne
+      fonts:
+        - asset: assets/fonts/MochiyPopOne-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

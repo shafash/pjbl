@@ -1,45 +1,41 @@
 import 'package:get/get.dart';
+import 'package:kelas_pintar/app/routes/app_pages.dart';
 
 class DashboardController extends GetxController {
-  // Nama user, bisa di-update nanti dari auth
-  var userName = 'Shafa'.obs;
+  var userName = 'Nama Pengguna'.obs;
+  var searchQuery = ''.obs;
 
-  // List tombol kecil di bawah search bar
-  final smallButtons = [
-    {'icon': 'assets/icons/book.png', 'tooltip': 'Catatan'},
-    {'icon': 'assets/icons/clipboard.png', 'tooltip': 'Tugas'},
-    {'icon': 'assets/icons/document.png', 'tooltip': 'Laporan'},
-    {'icon': 'assets/icons/database.png', 'tooltip': 'Materi'},
+  var smallButtons = [
+    {'icon': 'assets/icons/game.png', 'label': 'Game', 'route': null},
+    {'icon': 'assets/icons/materi.png', 'label': 'Materi', 'route': '/materi'},
+    {'icon': 'assets/icons/quiz.png', 'label': 'Kuis', 'route': null},
+    {'icon': 'assets/icons/tugas.png', 'label': 'Tugas', 'route': null},
   ];
 
-  // List subjek yang sering dikunjungi, maksimal 6
-  final subjects =
-      <Map<String, dynamic>>[
-        {'name': 'math', 'icon': 'assets/icons/math.png', 'route': '/math'},
-        {
-          'name': 'membaca',
-          'icon': 'assets/icons/membaca.png',
-          'route': '/membaca',
-        },
-        {
-          'name': 'English',
-          'icon': 'assets/icons/english.png',
-          'route': '/english',
-        },
-        {
-          'name': 'world bingo',
-          'icon': 'assets/icons/world_bingo.png',
-          'route': '/world-bingo',
-        },
-        {
-          'name': 'science',
-          'icon': 'assets/icons/science.png',
-          'route': '/science',
-        },
-        {
-          'name': 'coding',
-          'icon': 'assets/icons/coding.png',
-          'route': '/coding',
-        },
-      ].obs;
+  var hoverStates = List.generate(4, (_) => false.obs);
+
+  void setHover(int index, bool value) {
+    hoverStates[index].value = value;
+  }
+
+  var subjects = [
+    {'icon': 'assets/math.png', 'name': 'Matematika', 'route': '/matematika'},
+    {'icon': 'assets/ipa.png', 'name': 'IPA', 'route': '/ipa'},
+    {
+      'icon': 'assets/bahasa indonesia.png',
+      'name': 'Bahasa Indonesia',
+      'route': '/indonesia',
+    },
+    {
+      'icon': 'assets/english.png',
+      'name': 'Bahasa Inggris',
+      'route': '/english',
+    },
+    {
+      'icon': 'assets/world bingo.png',
+      'name': 'World Bingo',
+      'route': '/worldbingo',
+    },
+    {'icon': 'assets/seni.png', 'name': 'Seni', 'route': '/seni'},
+  ];
 }
