@@ -1,103 +1,123 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../services/auth_service.dart';
 
 class LoginView extends StatelessWidget {
+  LoginView({super.key});
+
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFF8B0000),
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Form(
+            key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: [
+                const SizedBox(height: 80),
                 const Text(
-                  "Login",
+                  'Kelas Pintar',
                   style: TextStyle(
-                    fontSize: 28,
+                    color: Colors.white,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF7A1212),
                   ),
                 ),
-                const SizedBox(height: 24),
-
-                // Email Field
-                TextField(
+                const SizedBox(height: 40),
+                TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(
-                    labelText: "Email",
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.white10,
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email),
                   ),
+                  style: const TextStyle(color: Colors.white),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email harus diisi';
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 12),
-
-                // Password Field
-                TextField(
+                const SizedBox(height: 20),
+                TextFormField(
                   controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
-                    labelText: "Password",
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.white10,
                     border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
                   ),
+                  style: const TextStyle(color: Colors.white),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password harus diisi';
+                    }
+                    return null;
+                  },
                 ),
-
-                // Forgot Password Link
+                const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () => Get.toNamed('/forgot-password'),
+                    onPressed: () {
+                      Get.toNamed('/forgot-password');
+                    },
                     child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                        color: Color(0xFF7A1212),
-                        fontWeight: FontWeight.w500,
-                      ),
+                      'Lupa Kata Sandi?',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 12),
-
-                // Login Button
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF7A1212),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 12,
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        try {
+                          await AuthService.to.login(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
+                          );
+                          Get.offAllNamed('/dashboard');
+                        } catch (e) {
+                          Get.snackbar(
+                            'Login Gagal',
+                            e.toString(),
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                          );
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF8B0000),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                    child: const Text('Login'),
                   ),
+                ),
+                const SizedBox(height: 20),
+                TextButton(
                   onPressed: () {
-                    final email = emailController.text.trim();
-                    final name = email.split('@').first.capitalizeFirst!;
-                    Get.toNamed('/dashboard', arguments: name);
+                    Get.toNamed('/register');
                   },
                   child: const Text(
-                    "Login",
+                    'Belum punya akun? Daftar',
                     style: TextStyle(color: Colors.white),
                   ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Register Link
-                TextButton(
-                  onPressed: () => Get.toNamed('/register'),
-                  child: const Text("Belum punya akun? Daftar"),
                 ),
               ],
             ),

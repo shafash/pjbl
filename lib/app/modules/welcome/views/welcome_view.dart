@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WelcomeView extends StatelessWidget {
-  const WelcomeView({Key? key}) : super(key: key);
+  const WelcomeView({super.key}); // ✔️ Menggunakan super parameter
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color((0xFF7A1212)),
+      backgroundColor: const Color(0xFF7A1212), // ✔️ const untuk warna tetap
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('assets/splash.png', height: 180),
+              Image.asset('assets/splash.png',
+                  height: 250), // tidak perlu const
               const SizedBox(height: 16),
               const Text(
                 "Belajar menjadi lebih menyenangkan",
@@ -40,7 +41,7 @@ class WelcomeView extends StatelessWidget {
                 onPressed: () => Get.offNamed('/login'),
                 child: const Text(
                   "Masuk untuk memulai",
-                  style: TextStyle(fontSize: 16, color: Color((0xFF7A1212))),
+                  style: TextStyle(fontSize: 16, color: Color(0xFF7A1212)),
                 ),
               ),
             ],

@@ -14,66 +14,100 @@ class RegisterView extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
-          // Membungkus seluruh konten dengan Center untuk membuatnya terpusat
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment
-                      .center, // Menyusun elemen secara vertikal di tengah
-              crossAxisAlignment:
-                  CrossAxisAlignment
-                      .center, // Menyusun elemen secara horizontal di tengah
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
                   "Register",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Color((0xFF7A1212)), // Menambahkan warna untuk judul
+                    color: Color(0xFF7A1212),
                   ),
                 ),
                 const SizedBox(height: 24),
+
+                // Nama Lengkap
                 TextField(
                   controller: nameController,
-                  decoration: const InputDecoration(
-                    labelText: "Nama",
-                    border:
-                        OutlineInputBorder(), // Menambahkan border di sekitar text field
-                    prefixIcon: Icon(Icons.person), // Ikon untuk input nama
+                  style: TextStyle(
+                    color: Get.isDarkMode ? Colors.white : Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Nama Lengkap',
+                    hintStyle: TextStyle(
+                      color: Get.isDarkMode ? Colors.white54 : Colors.black54,
+                    ),
+                    filled: true,
+                    fillColor:
+                        Get.isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
+
+                // Email
                 TextField(
                   controller: emailController,
-                  decoration: const InputDecoration(
-                    labelText: "Email",
-                    border:
-                        OutlineInputBorder(), // Menambahkan border di sekitar text field
-                    prefixIcon: Icon(Icons.email), // Ikon untuk input email
+                  style: TextStyle(
+                    color: Get.isDarkMode ? Colors.white : Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
+                      color: Get.isDarkMode ? Colors.white54 : Colors.black54,
+                    ),
+                    filled: true,
+                    fillColor:
+                        Get.isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
+
+                // Password
                 TextField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: "Password",
-                    border:
-                        OutlineInputBorder(), // Menambahkan border di sekitar text field
-                    prefixIcon: Icon(Icons.lock), // Ikon untuk input password
+                  style: TextStyle(
+                    color: Get.isDarkMode ? Colors.white : Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                      color: Get.isDarkMode ? Colors.white54 : Colors.black54,
+                    ),
+                    filled: true,
+                    fillColor:
+                        Get.isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
+
                 const SizedBox(height: 24),
+
+                // Tombol Daftar
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color((0xFF7A1212)),
+                    backgroundColor: const Color(0xFF7A1212),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 40,
                       vertical: 12,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // Rounded button
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   onPressed: () {
@@ -84,7 +118,10 @@ class RegisterView extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
+
                 const SizedBox(height: 16),
+
+                // Tombol Login
                 TextButton(
                   onPressed: () => Get.back(),
                   child: const Text("Sudah punya akun? Login"),

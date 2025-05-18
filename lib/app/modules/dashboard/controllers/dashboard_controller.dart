@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:kelas_pintar/app/routes/app_pages.dart';
 
 class DashboardController extends GetxController {
   var userName = 'Nama Pengguna'.obs;
@@ -29,7 +28,7 @@ class DashboardController extends GetxController {
     {
       'icon': 'assets/english.png',
       'name': 'Bahasa Inggris',
-      'route': '/english',
+      'route': '/english-submateri',
     },
     {
       'icon': 'assets/world bingo.png',

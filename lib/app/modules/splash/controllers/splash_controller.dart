@@ -5,7 +5,7 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     // Delay sebentar lalu pindah ke halaman Welcome
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Get.offAllNamed('/welcome');
     });
   }

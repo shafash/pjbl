@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
-  const DashboardView({Key? key}) : super(key: key);
+  const DashboardView({super.key}); // <-- diubah di sini
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +18,14 @@ class DashboardView extends GetView<DashboardController> {
               // Top bar
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Icon(Icons.settings, color: Colors.brown),
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/profil.png'),
-                    radius: 20,
+                children: [
+                  const Icon(Icons.settings, color: Colors.brown),
+                  GestureDetector(
+                    onTap: () => Get.toNamed('/profil'),
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage('assets/profil.png'),
+                      radius: 20,
+                    ),
                   ),
                 ],
               ),
@@ -68,12 +71,11 @@ class DashboardView extends GetView<DashboardController> {
               ),
               const SizedBox(height: 16),
 
-              // Small Buttons with Tooltip
+              // Small Buttons with labels (mobile friendly)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(controller.smallButtons.length, (
-                  index,
-                ) {
+                children:
+                    List.generate(controller.smallButtons.length, (index) {
                   final btn = controller.smallButtons[index];
                   return GestureDetector(
                     onTap: () {
@@ -82,40 +84,25 @@ class DashboardView extends GetView<DashboardController> {
                         Get.toNamed(route);
                       }
                     },
-                    child: MouseRegion(
-                      onEnter: (_) => controller.setHover(index, true),
-                      onExit: (_) => controller.setHover(index, false),
-                      child: Obx(() {
-                        final isHovering = controller.hoverStates[index].value;
-                        return AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
-                          ),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            shape: BoxShape.circle,
                             border: Border.all(color: Colors.brown, width: 2),
-                            borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(btn['icon']!, height: 24),
-                              if (isHovering) ...[
-                                const SizedBox(width: 8),
-                                Text(
-                                  btn['label']!,
-                                  style: const TextStyle(
-                                    color: Colors.brown,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ],
+                          child: Image.asset(btn['icon']!, height: 24),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          btn['label']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.brown,
                           ),
-                        );
-                      }),
+                        ),
+                      ],
                     ),
                   );
                 }),
@@ -126,24 +113,23 @@ class DashboardView extends GetView<DashboardController> {
               Expanded(
                 child: Obx(() {
                   final search = controller.searchQuery.value;
-                  final filteredSubjects =
-                      controller.subjects
-                          .where(
-                            (subject) =>
-                                subject['name']!.toLowerCase().contains(search),
-                          )
-                          .take(6)
-                          .toList();
+                  final filteredSubjects = controller.subjects
+                      .where(
+                        (subject) =>
+                            subject['name']!.toLowerCase().contains(search),
+                      )
+                      .take(6)
+                      .toList();
 
                   return GridView.builder(
                     itemCount: filteredSubjects.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 12,
-                          childAspectRatio: 3 / 4,
-                        ),
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: 3 / 4,
+                    ),
                     itemBuilder: (context, index) {
                       final subject = filteredSubjects[index];
                       return GestureDetector(
@@ -160,9 +146,8 @@ class DashboardView extends GetView<DashboardController> {
                               Image.asset(
                                 subject['icon']!,
                                 height: 80,
-                                errorBuilder:
-                                    (context, error, stackTrace) =>
-                                        const Icon(Icons.image_not_supported),
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.image_not_supported),
                               ),
                               const SizedBox(height: 10),
                               Text(

@@ -10,7 +10,9 @@ class RegisterController extends GetxController {
     final name = nameController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-    print("Registering $name with $email and $password");
+
+    // Gunakan Get.log() untuk menggantikan print()
+    Get.log("Registering $name with $email and $password");
 
     if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
       Get.offNamed('/dashboard');

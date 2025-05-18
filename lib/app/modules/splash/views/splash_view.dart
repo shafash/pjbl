@@ -13,8 +13,10 @@ class SplashView extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: Color((0xFF7A1212)),
-      body: Center(child: Image.asset('assets/splash.png', height: 250)),
+      backgroundColor: const Color(0xFF7A1212),
+      body: Center(
+        child: Image.asset('assets/splash.png', height: 250),
+      ),
     );
   }
 }

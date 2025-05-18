@@ -1,23 +1,5 @@
 import 'package:get/get.dart';
 
 class EnglishSubmateriController extends GetxController {
-  //TODO: Implement EnglishSubmateriController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  // Tambahkan logic controller di sini jika diperlukan nanti
 }
