@@ -18,6 +18,14 @@ abstract class Routes {
   static const LOGOUT_CONFIRM = _Paths.LOGOUT_CONFIRM;
   static const UBAH_KATA_SANDI = _Paths.UBAH_KATA_SANDI;
   static const VEGETABLES = _Paths.VEGETABLES;
+  static const FLAGS = _Paths.FLAGS;
+  static const ANIMALS = _Paths.ANIMALS;
+  static const FRUITS = _Paths.FRUITS;
+  static const CLOTHES = _Paths.CLOTHES;
+  static const COLORS = _Paths.COLORS;
+  static const SHAPES = _Paths.SHAPES;
+  static const MATH_SUBMATERI = _Paths.MATH_SUBMATERI;
+  static const ADDITION = _Paths.ADDITION;
 }
 
 /// Internal paths used in routing
@@ -38,4 +46,12 @@ abstract class _Paths {
   static const LOGOUT_CONFIRM = '/logout-confirm';
   static const UBAH_KATA_SANDI = '/ubah-kata-sandi';
   static const VEGETABLES = '/vegetables';
+  static const FLAGS = '/flags';
+  static const ANIMALS = '/animals';
+  static const FRUITS = '/fruits';
+  static const CLOTHES = '/clothes';
+  static const COLORS = '/colors';
+  static const SHAPES = '/shapes';
+  static const MATH_SUBMATERI = '/math-submateri';
+  static const ADDITION = '/addition';
 }

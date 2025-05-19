@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
-  const DashboardView({super.key}); // <-- diubah di sini
+  const DashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,6 @@ class DashboardView extends GetView<DashboardController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top bar
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -30,8 +29,6 @@ class DashboardView extends GetView<DashboardController> {
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Greeting
               Obx(
                 () => Text(
                   "Hai ${controller.userName.value}!!",
@@ -43,8 +40,6 @@ class DashboardView extends GetView<DashboardController> {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Search Bar
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
@@ -70,8 +65,6 @@ class DashboardView extends GetView<DashboardController> {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Small Buttons with labels (mobile friendly)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children:
@@ -108,8 +101,6 @@ class DashboardView extends GetView<DashboardController> {
                 }),
               ),
               const SizedBox(height: 20),
-
-              // Subject Cards
               Expanded(
                 child: Obx(() {
                   final search = controller.searchQuery.value;

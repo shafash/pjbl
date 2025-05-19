@@ -7,15 +7,27 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Delay 2 detik, lalu pindah ke halaman Welcome
+    print('>>> SplashView loaded');
+
+    // Delay 3 detik, lalu pindah ke halaman Welcome
     Future.delayed(const Duration(seconds: 3), () {
+      print('>>> Redirecting to Welcome...');
       Get.offAllNamed(Routes.WELCOME);
     });
 
     return Scaffold(
       backgroundColor: const Color(0xFF7A1212),
       body: Center(
-        child: Image.asset('assets/splash.png', height: 250),
+        child: Image.asset(
+          'assets/splash.png',
+          height: 250,
+          errorBuilder: (context, error, stackTrace) {
+            return const Text(
+              'Splash image not found!',
+              style: TextStyle(color: Colors.white),
+            );
+          },
+        ),
       ),
     );
   }

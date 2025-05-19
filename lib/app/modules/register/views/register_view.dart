@@ -1,132 +1,133 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterView extends StatelessWidget {
-  final nameController = TextEditingController();
+class RegisterView extends StatefulWidget {
+  const RegisterView({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-  RegisterView({super.key});
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required bool isDark,
+    bool isPassword = false,
+  }) {
+    return TextFormField(
+      controller: controller,
+      obscureText: isPassword,
+      style: TextStyle(color: isDark ? Colors.white : Colors.black87),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: isDark ? Colors.white70 : Colors.black54),
+        filled: true,
+        fillColor:
+            isDark ? Colors.red.shade900.withOpacity(0.2) : Colors.grey[200],
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide:
+              BorderSide(color: isDark ? Colors.white : Colors.red.shade900),
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return '$label tidak boleh kosong';
+        }
+        if (label == 'Konfirmasi Password' &&
+            value != passwordController.text) {
+          return 'Konfirmasi password tidak cocok';
+        }
+        return null;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Color(0xFF8B0000) : Colors.white,
       body: SafeArea(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "Register",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF7A1212),
-                  ),
-                ),
-                const SizedBox(height: 24),
-
-                // Nama Lengkap
-                TextField(
-                  controller: nameController,
-                  style: TextStyle(
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Nama Lengkap',
-                    hintStyle: TextStyle(
-                      color: Get.isDarkMode ? Colors.white54 : Colors.black54,
-                    ),
-                    filled: true,
-                    fillColor:
-                        Get.isDarkMode ? Colors.grey[800] : Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Daftar',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? Colors.white : Colors.red.shade900,
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
-
-                // Email
-                TextField(
-                  controller: emailController,
-                  style: TextStyle(
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
+                  const SizedBox(height: 40),
+                  _buildTextField(
+                    controller: emailController,
+                    label: 'Email',
+                    isDark: isDark,
                   ),
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    hintStyle: TextStyle(
-                      color: Get.isDarkMode ? Colors.white54 : Colors.black54,
-                    ),
-                    filled: true,
-                    fillColor:
-                        Get.isDarkMode ? Colors.grey[800] : Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+                  const SizedBox(height: 20),
+                  _buildTextField(
+                    controller: passwordController,
+                    label: 'Password',
+                    isDark: isDark,
+                    isPassword: true,
                   ),
-                ),
-                const SizedBox(height: 16),
-
-                // Password
-                TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  style: TextStyle(
-                    color: Get.isDarkMode ? Colors.white : Colors.black,
+                  const SizedBox(height: 20),
+                  _buildTextField(
+                    controller: confirmPasswordController,
+                    label: 'Konfirmasi Password',
+                    isDark: isDark,
+                    isPassword: true,
                   ),
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    hintStyle: TextStyle(
-                      color: Get.isDarkMode ? Colors.white54 : Colors.black54,
-                    ),
-                    filled: true,
-                    fillColor:
-                        Get.isDarkMode ? Colors.grey[800] : Colors.grey[200],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          // logic register
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isDark ? Colors.red.shade900 : Colors.red.shade700,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text('Daftar'),
                     ),
                   ),
-                ),
-
-                const SizedBox(height: 24),
-
-                // Tombol Daftar
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF7A1212),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 12,
+                  const SizedBox(height: 10),
+                  TextButton(
+                    onPressed: () => Get.back(),
+                    style: TextButton.styleFrom(
+                      foregroundColor:
+                          isDark ? Colors.white : Colors.red.shade900,
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                    child: const Text('Sudah punya akun? Masuk'),
                   ),
-                  onPressed: () {
-                    Get.back(); // kembali ke login
-                  },
-                  child: const Text(
-                    "Daftar",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Tombol Login
-                TextButton(
-                  onPressed: () => Get.back(),
-                  child: const Text("Sudah punya akun? Login"),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

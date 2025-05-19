@@ -1,35 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:developer'; // Untuk menggantikan print
+import '../../../services/auth_service.dart';
+import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void login() {
+  void login() async {
     final email = emailController.text.trim();
-    final password = passwordController.text;
+    final password = passwordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Email dan kata sandi tidak boleh kosong.',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-      return;
-    }
-
-    // Contoh implementasi login sederhana
-    if (email == 'admin@example.com' && password == 'admin123') {
-      log('Login berhasil'); // gunakan log() bukan print
-      Get.offAllNamed('/dashboard');
-    } else {
+    try {
+      await AuthService.to.login(email, password);
+      Get.offAllNamed(Routes.DASHBOARD);
+    } catch (e) {
       Get.snackbar(
         'Login Gagal',
-        'Email atau kata sandi salah.',
-        backgroundColor: Colors.red,
+        e.toString().replaceAll('Exception: ', ''),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.redAccent,
         colorText: Colors.white,
+        margin: const EdgeInsets.all(16),
+        borderRadius: 12,
       );
     }
   }

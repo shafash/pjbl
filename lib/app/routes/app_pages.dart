@@ -1,23 +1,39 @@
 import 'package:get/get.dart';
 
 import '../middleware/auth_middleware.dart';
+import '../modules/addition/bindings/addition_binding.dart';
+import '../modules/addition/views/addition_view.dart';
+import '../modules/animals/bindings/animals_binding.dart';
+import '../modules/animals/views/animals_view.dart';
+import '../modules/clothes/bindings/clothes_binding.dart';
+import '../modules/clothes/views/clothes_view.dart';
+import '../modules/colors/bindings/colors_binding.dart';
+import '../modules/colors/views/colors_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/english-alphabet/bindings/english_alphabet_binding.dart';
 import '../modules/english-alphabet/views/english_alphabet_view.dart';
 import '../modules/english-submateri/bindings/english_submateri_binding.dart';
 import '../modules/english-submateri/views/english_submateri_view.dart';
+import '../modules/flags/bindings/flags_binding.dart';
+import '../modules/flags/views/flags_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
+import '../modules/fruits/bindings/fruits_binding.dart';
+import '../modules/fruits/views/fruits_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/logout_confirm/bindings/logout_confirm_binding.dart';
 import '../modules/logout_confirm/views/logout_confirm_view.dart';
 import '../modules/materi/views/materi_view.dart';
+import '../modules/math-submateri/bindings/math_submateri_binding.dart';
+import '../modules/math-submateri/views/math_submateri_view.dart';
 import '../modules/profil/bindings/profil_binding.dart';
 import '../modules/profil/views/profil_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/shapes/bindings/shapes_binding.dart';
+import '../modules/shapes/views/shapes_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/ubah_kata_sandi/bindings/ubah_kata_sandi_binding.dart';
@@ -32,7 +48,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const initial = Routes.SPLASH; // ✅ Gunakan camelCase
+  static const initial = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -47,12 +63,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LOGIN,
-      page: () => LoginView(), // ditambah const
+      page: () => const LoginView(),
       binding: LoginBinding(),
     ),
     GetPage(
       name: _Paths.REGISTER,
-      page: () => RegisterView(), // ditambah const
+      page: () => const RegisterView(),
       binding: RegisterBinding(),
     ),
     GetPage(
@@ -68,7 +84,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MATERI,
-      page: () => const MateriView(), // ditambah const
+      page: () => const MateriView(),
     ),
     GetPage(
       name: _Paths.ENGLISH_SUBMATERI,
@@ -92,13 +108,53 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.UBAH_KATA_SANDI,
-      page: () => UbahKataSandiView(), // ditambah const
+      page: () => UbahKataSandiView(),
       binding: UbahKataSandiBinding(),
     ),
     GetPage(
       name: _Paths.VEGETABLES,
-      page: () => const VegetablesView(), // ditambah const
+      page: () => const VegetablesView(),
       binding: VegetablesBinding(),
+    ),
+    GetPage(
+      name: _Paths.FLAGS,
+      page: () => FlagsView(),
+      binding: FlagsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ANIMALS,
+      page: () => AnimalsView(),
+      binding: AnimalsBinding(),
+    ),
+    GetPage(
+      name: _Paths.FRUITS,
+      page: () => FruitsView(),
+      binding: FruitsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CLOTHES,
+      page: () => ClothesView(),
+      binding: ClothesBinding(),
+    ),
+    GetPage(
+      name: _Paths.COLORS,
+      page: () => ColorsView(),
+      binding: ColorsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHAPES,
+      page: () => ShapesView(),
+      binding: ShapesBinding(),
+    ),
+    GetPage(
+      name: _Paths.MATH_SUBMATERI,
+      page: () => MathSubmateriView(),
+      binding: MathSubmateriBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDITION,
+      page: () => AdditionView(),
+      binding: AdditionBinding(),
     ),
   ];
 }

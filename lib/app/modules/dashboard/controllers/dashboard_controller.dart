@@ -18,10 +18,14 @@ class DashboardController extends GetxController {
   }
 
   var subjects = [
-    {'icon': 'assets/math.png', 'name': 'Matematika', 'route': '/matematika'},
+    {
+      'icon': 'assets/math.png',
+      'name': 'Matematika',
+      'route': '/math-submateri'
+    },
     {'icon': 'assets/ipa.png', 'name': 'IPA', 'route': '/ipa'},
     {
-      'icon': 'assets/bahasa indonesia.png',
+      'icon': 'assets/bahasa_indonesia.png',
       'name': 'Bahasa Indonesia',
       'route': '/indonesia',
     },
@@ -31,7 +35,7 @@ class DashboardController extends GetxController {
       'route': '/english-submateri',
     },
     {
-      'icon': 'assets/world bingo.png',
+      'icon': 'assets/world_bingo.png',
       'name': 'World Bingo',
       'route': '/worldbingo',
     },

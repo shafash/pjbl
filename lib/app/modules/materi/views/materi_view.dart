@@ -13,12 +13,16 @@ class MateriView extends StatelessWidget {
         'icon': 'assets/english.png',
         'route': Routes.ENGLISH_SUBMATERI,
       },
-      {'title': 'Math', 'icon': 'assets/math.png', 'route': null},
+      {
+        'title': 'Math',
+        'icon': 'assets/math.png',
+        'route': Routes.MATH_SUBMATERI
+      },
       {'title': 'IPA', 'icon': 'assets/ipa.png', 'route': null},
       {'title': 'IPS', 'icon': 'assets/ips.png', 'route': null},
       {
         'title': 'Bahasa Indonesia',
-        'icon': 'assets/bahasa indonesia.png',
+        'icon': 'assets/bahasa_indonesia.png',
         'route': null,
       },
       {'title': 'Seni', 'icon': 'assets/seni.png', 'route': null},
@@ -40,40 +44,39 @@ class MateriView extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          children:
-              materiList.map((materi) {
-                return GestureDetector(
-                  onTap: () {
-                    final route = materi['route'];
-                    if (route != null) {
-                      Get.toNamed(route);
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.brown),
-                      borderRadius: BorderRadius.circular(16),
+          children: materiList.map((materi) {
+            return GestureDetector(
+              onTap: () {
+                final route = materi['route'];
+                if (route != null) {
+                  Get.toNamed(route);
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.brown),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(materi['icon']!, height: 80),
+                    const SizedBox(height: 10),
+                    Text(
+                      materi['title']!,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.brown,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(materi['icon']!, height: 80),
-                        const SizedBox(height: 10),
-                        Text(
-                          materi['title']!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.brown,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }).toList(),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
         ),
       ),
     );

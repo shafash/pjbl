@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  get: ^4.6.6
+  get: ^4.6.5
   get_storage: ^2.1.1
   google_fonts: ^6.1.0
   flutter_svg: ^2.0.7
@@ -72,6 +72,60 @@ flutter:
     - assets/alphabet/X.png 
     - assets/alphabet/Y.png 
     - assets/alphabet/Z.png  
+    - assets/vegetables/Broccoli.png
+    - assets/vegetables/Cabbage.png
+    - assets/vegetables/Corn.png
+    - assets/vegetables/Cucumber.png
+    - assets/vegetables/Eggplant.png
+    - assets/vegetables/Onion.png
+    - assets/vegetables/Peas.png
+    - assets/vegetables/Potato.png
+    - assets/vegetables/Pumpkin.png
+    - assets/vegetables/Spinach.png
+    - assets/vegetables/Tomato.png
+    - assets/vegetables/Carrot.png
+    - assets/flags/france.png
+    - assets/flags/indonesia.png
+    - assets/flags/japan.png
+    - assets/flags/uk.png
+    - assets/flags/usa.png
+    - assets/animals/cat.png
+    - assets/animals/dog.png
+    - assets/animals/elephant.png
+    - assets/animals/giraffe.png
+    - assets/animals/lion.png
+    - assets/animals/monkey.png
+    - assets/animals/tiger.png
+    - assets/animals/zebra.png
+    - assets/animals/penguin.png
+    - assets/animals/rabbit.png
+    - assets/animals/panda.png
+    - assets/fruits/apple.png
+    - assets/fruits/banana.png
+    - assets/fruits/grapes.png
+    - assets/fruits/mango.png
+    - assets/fruits/orange.png
+    - assets/fruits/papaya.png
+    - assets/fruits/pineapple.png
+    - assets/fruits/strawberry.png
+    - assets/fruits/watermelon.png
+    - assets/clothes/dress.png
+    - assets/clothes/hat.png
+    - assets/clothes/jacket.png
+    - assets/clothes/pants.png
+    - assets/clothes/shoes.png
+    - assets/clothes/skirt.png
+    - assets/clothes/sweater.png
+    - assets/clothes/tshirt.png
+    - assets/clothes/shorts.png
+    - assets/math/addition.png
+    - assets/math/division.png
+    - assets/math/measurement.png
+    - assets/math/multiplication.png
+    - assets/math/numbers.png
+    - assets/math/patterns.png
+    - assets/math/shapes.png
+    - assets/math/subtraction.png
 
   fonts:
     - family: MochiyPopOne

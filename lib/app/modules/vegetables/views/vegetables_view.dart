@@ -8,21 +8,30 @@ class VegetablesView extends StatefulWidget {
   State<VegetablesView> createState() => _VegetablesViewState();
 }
 
-class _VegetablesViewState extends State<VegetablesView> {
+class _VegetablesViewState extends State<VegetablesView>
+    with SingleTickerProviderStateMixin {
   final List<Map<String, String>> vegetables = [
-    {'name': 'Carrot', 'image': 'assets/images/vegetables/carrot.png'},
-    {'name': 'Tomato', 'image': 'assets/images/vegetables/tomato.png'},
-    {'name': 'Broccoli', 'image': 'assets/images/vegetables/broccoli.png'},
-    {'name': 'Potato', 'image': 'assets/images/vegetables/potato.png'},
-    {'name': 'Onion', 'image': 'assets/images/vegetables/onion.png'},
-    {'name': 'Corn', 'image': 'assets/images/vegetables/corn.png'},
+    {'name': 'Carrot', 'image': 'assets/vegetables/carrot.png'},
+    {'name': 'Tomato', 'image': 'assets/vegetables/tomato.png'},
+    {'name': 'Broccoli', 'image': 'assets/vegetables/broccoli.png'},
+    {'name': 'Potato', 'image': 'assets/vegetables/potato.png'},
+    {'name': 'Onion', 'image': 'assets/vegetables/onion.png'},
+    {'name': 'Corn', 'image': 'assets/vegetables/corn.png'},
+    {'name': 'Cabbage', 'image': 'assets/vegetables/cabbage.png'},
+    {'name': 'Spinach', 'image': 'assets/vegetables/spinach.png'},
+    {'name': 'Cucumber', 'image': 'assets/vegetables/cucumber.png'},
+    {'name': 'Eggplant', 'image': 'assets/vegetables/eggplant.png'},
+    {'name': 'Peas', 'image': 'assets/vegetables/peas.png'},
+    {'name': 'Pumpkin', 'image': 'assets/vegetables/pumpkin.png'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFC8E6C9), // light green
+      backgroundColor: const Color(0xFFE8F5E9), // Light green
       appBar: AppBar(
+        backgroundColor: Colors.green.shade700,
+        centerTitle: true,
         title: const Text(
           'Vegetables',
           style: TextStyle(
@@ -31,54 +40,66 @@ class _VegetablesViewState extends State<VegetablesView> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.green.shade700,
-        centerTitle: true,
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: vegetables.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 1,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.9,
         ),
         itemBuilder: (context, index) {
           final veg = vegetables[index];
-          return GestureDetector(
-            onTap: () => _showVegetablePopup(index),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(2, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Image.asset(veg['image']!, fit: BoxFit.contain),
+          return AnimatedContainer(
+            duration: Duration(milliseconds: 300 + (index * 100)),
+            curve: Curves.easeIn,
+            child: GestureDetector(
+              onTap: () => _showVegetablePopup(index),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(2, 4),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    veg['name']!,
-                    style: const TextStyle(
-                      fontFamily: 'MochiyPopOne',
-                      fontSize: 16,
-                      color: Colors.black87,
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Image.asset(
+                          veg['image']!,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                ],
+                    const SizedBox(height: 8),
+                    Text(
+                      veg['name']!,
+                      style: const TextStyle(
+                        fontFamily: 'MochiyPopOne',
+                        fontSize: 16,
+                        color: Colors.green,
+                        shadows: [
+                          Shadow(
+                            color: Colors.lightGreen,
+                            offset: Offset(1, 1),
+                            blurRadius: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                  ],
+                ),
               ),
             ),
           );
@@ -159,6 +180,18 @@ class _VegetablesViewState extends State<VegetablesView> {
         return 'Onions are used in many dishes to add flavor.';
       case 'Corn':
         return 'Corn is yellow and sweet, often eaten on the cob.';
+      case 'Cabbage':
+        return 'Cabbage is leafy and full of fiber.';
+      case 'Spinach':
+        return 'Spinach makes you strong like Popeye!';
+      case 'Cucumber':
+        return 'Cucumbers are cool and juicy, great in salads.';
+      case 'Eggplant':
+        return 'Eggplants are purple and used in many tasty dishes.';
+      case 'Peas':
+        return 'Peas are small, round, and sweet.';
+      case 'Pumpkin':
+        return 'Pumpkins are big and orange, often used in soup or pie!';
       default:
         return 'This is a healthy and tasty vegetable!';
     }

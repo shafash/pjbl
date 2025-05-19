@@ -18,7 +18,7 @@ class EnglishSubmateriView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFEBEE), // soft pink/red
+      backgroundColor: const Color(0xFFFFEBEE),
       appBar: AppBar(
         title: const Text(
           'English Topics',
@@ -41,10 +41,28 @@ class EnglishSubmateriView extends StatelessWidget {
             onTap: () {
               switch (topic['label']) {
                 case 'alphabet':
-                  Get.toNamed('/english_alphabet');
+                  Get.toNamed('/english-alphabet');
                   break;
                 case 'vegetables':
                   Get.toNamed('/vegetables');
+                  break;
+                case 'flags':
+                  Get.toNamed('/flags');
+                  break;
+                case 'animals':
+                  Get.toNamed('/animals');
+                  break;
+                case 'fruits':
+                  Get.toNamed('/fruits');
+                  break;
+                case 'clothes':
+                  Get.toNamed('/clothes');
+                  break;
+                case 'colors':
+                  Get.toNamed('/colors');
+                  break;
+                case 'shapes':
+                  Get.toNamed('/shapes');
                   break;
                 default:
                   Get.snackbar(
