@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+class DummyAuthService {
+  // Simulasi daftar user
+  Future<bool> register(String email, String password) async {
+    await Future.delayed(const Duration(seconds: 1)); // simulasi delay
+    if (email.contains('@') && password.length >= 6) {
+      return true; // sukses daftar
+    } else {
+      return false; // gagal daftar
+    }
+  }
+}
+
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
 
@@ -13,6 +25,9 @@ class _RegisterViewState extends State<RegisterView> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final DummyAuthService authService = DummyAuthService();
+
+  bool _isLoading = false;
 
   Widget _buildTextField({
     required TextEditingController controller,
@@ -44,6 +59,12 @@ class _RegisterViewState extends State<RegisterView> {
         if (value == null || value.isEmpty) {
           return '$label tidak boleh kosong';
         }
+        if (label == 'Email' && !GetUtils.isEmail(value)) {
+          return 'Email tidak valid';
+        }
+        if (label == 'Password' && value.length < 6) {
+          return 'Password minimal 6 karakter';
+        }
         if (label == 'Konfirmasi Password' &&
             value != passwordController.text) {
           return 'Konfirmasi password tidak cocok';
@@ -53,12 +74,57 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
+  Future<void> _register() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+
+    bool success = await authService.register(email, password);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (success) {
+      Get.snackbar(
+        'Sukses',
+        'Registrasi berhasil. Silakan login.',
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+      );
+
+      // Reset field
+      emailController.clear();
+      passwordController.clear();
+      confirmPasswordController.clear();
+
+      // Navigasi kembali ke LoginView
+      Get.back();
+    } else {
+      Get.snackbar(
+        'Gagal',
+        'Registrasi gagal. Periksa kembali input Anda.',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? Color(0xFF8B0000) : Colors.white,
+      backgroundColor: isDark ? const Color(0xFF8B0000) : Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -96,16 +162,12 @@ class _RegisterViewState extends State<RegisterView> {
                     isDark: isDark,
                     isPassword: true,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // logic register
-                        }
-                      },
+                      onPressed: _isLoading ? null : _register,
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             isDark ? Colors.red.shade900 : Colors.red.shade700,
@@ -114,7 +176,11 @@ class _RegisterViewState extends State<RegisterView> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: const Text('Daftar'),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text('Daftar'),
                     ),
                   ),
                   const SizedBox(height: 10),

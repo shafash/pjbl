@@ -18,14 +18,22 @@ class MateriView extends StatelessWidget {
         'icon': 'assets/math.png',
         'route': Routes.MATH_SUBMATERI
       },
-      {'title': 'IPA', 'icon': 'assets/ipa.png', 'route': null},
-      {'title': 'IPS', 'icon': 'assets/ips.png', 'route': null},
+      {'title': 'IPA', 'icon': 'assets/ipa.png', 'route': Routes.IPA_SUBMATERI},
+      {
+        'title': 'IPS',
+        'icon': 'assets/ips.png',
+        'route': Routes.SUB_MATERI_IPS
+      },
       {
         'title': 'Bahasa Indonesia',
         'icon': 'assets/bahasa_indonesia.png',
-        'route': null,
+        'route': Routes.SUBMATERI_INDONESIA,
       },
-      {'title': 'Seni', 'icon': 'assets/seni.png', 'route': null},
+      {
+        'title': 'Seni',
+        'icon': 'assets/seni.png',
+        'route': Routes.SUBMATERI_SENI
+      },
     ];
 
     return Scaffold(

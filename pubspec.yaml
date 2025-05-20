@@ -126,6 +126,65 @@ flutter:
     - assets/math/patterns.png
     - assets/math/shapes.png
     - assets/math/subtraction.png
+    - assets/subtraction_apples.png
+    - assets/body_parts/ear.png
+    - assets/body_parts/eye.png
+    - assets/body_parts/hand.png
+    - assets/body_parts/head.png
+    - assets/body_parts/leg.png
+    - assets/body_parts/mouth.png
+    - assets/body_parts/nose.png
+    - assets/body_parts/stomach.png
+    - assets/senses/ear.png
+    - assets/senses/eye.png
+    - assets/senses/nose.png
+    - assets/senses/skin.png
+    - assets/senses/tongue.png
+    - assets/plants.png
+    - assets/ipa/bird.png
+    - assets/ipa/cat.png
+    - assets/ipa/cow.png
+    - assets/ipa/grass.png
+    - assets/ipa/mango_tree.png
+    - assets/ipa/sunflower.png
+    - assets/padat.png
+    - assets/cair.png
+    - assets/gas.png
+    - assets/sifat.png
+    - assets/benda padat/batu.png
+    - assets/benda padat/buku.png
+    - assets/benda padat/kursi.png
+    - assets/benda padat/meja.png
+    - assets/benda padat/pensil.png
+    - assets/benda padat/piring.png
+    - assets/sifat benda/bentuk_tetap.png
+    - assets/sifat benda/mengalir.png
+    - assets/sifat benda/mengisi_ruang.png
+    - assets/sifat benda/menekan.png
+    - assets/benda gas/asap.png
+    - assets/benda gas/gas_alam.png
+    - assets/benda gas/gas.png
+    - assets/benda gas/oksigen.png
+    - assets/benda gas/uap_air.png
+    - assets/benda gas/udara.png
+    - assets/benda gas/co2.png
+    - assets/benda cair/air.png
+    - assets/benda cair/kecap.png
+    - assets/benda cair/madu.png
+    - assets/benda cair/minyak.png
+    - assets/benda cair/sirup.png
+    - assets/benda cair/susu.png
+    - assets/tata_surya/earth.png
+    - assets/tata_surya/jupiter.png
+    - assets/tata_surya/mars.png
+    - assets/tata_surya/mercurius.png
+    - assets/tata_surya/neptunus.png
+    - assets/tata_surya/saturnus.png
+    - assets/tata_surya/sun.png
+    - assets/tata_surya/uranus.png
+    - assets/tata_surya/venus.png
+    - assets/kompas.png
+
 
   fonts:
     - family: MochiyPopOne

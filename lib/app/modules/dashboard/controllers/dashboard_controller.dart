@@ -7,7 +7,7 @@ class DashboardController extends GetxController {
   var smallButtons = [
     {'icon': 'assets/icons/game.png', 'label': 'Game', 'route': null},
     {'icon': 'assets/icons/materi.png', 'label': 'Materi', 'route': '/materi'},
-    {'icon': 'assets/icons/quiz.png', 'label': 'Kuis', 'route': null},
+    {'icon': 'assets/icons/quiz.png', 'label': 'Kuis', 'route': '/kuis'},
     {'icon': 'assets/icons/tugas.png', 'label': 'Tugas', 'route': null},
   ];
 
@@ -23,7 +23,7 @@ class DashboardController extends GetxController {
       'name': 'Matematika',
       'route': '/math-submateri'
     },
-    {'icon': 'assets/ipa.png', 'name': 'IPA', 'route': '/ipa'},
+    {'icon': 'assets/ipa.png', 'name': 'IPA', 'route': '/ipa-submateri'},
     {
       'icon': 'assets/bahasa_indonesia.png',
       'name': 'Bahasa Indonesia',
@@ -39,6 +39,6 @@ class DashboardController extends GetxController {
       'name': 'World Bingo',
       'route': '/worldbingo',
     },
-    {'icon': 'assets/seni.png', 'name': 'Seni', 'route': '/seni'},
+    {'icon': 'assets/seni.png', 'name': 'Seni', 'route': '/SubmateriSeni'},
   ];
 }

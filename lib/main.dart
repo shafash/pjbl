@@ -1,42 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'theme/theme.dart';
 import 'app/routes/app_pages.dart';
+import 'theme/theme_controller.dart';
+import 'theme/theme.dart';
 import 'app/services/auth_service.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Registrasi AuthService agar bisa dipakai di mana saja
+void main() {
   Get.put(AuthService());
-
   runApp(const MyApp());
 }
 
-class ThemeController extends GetxController {
-  var isDarkMode = false.obs;
-
-  void toggleTheme() {
-    isDarkMode.value = !isDarkMode.value;
-    Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
-  }
-}
-
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeController = Get.put(ThemeController());
+    final ThemeController themeController = Get.put(ThemeController());
 
     return Obx(() => GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'App Demo',
+          title: "Red Themed App",
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
-          themeMode: themeController.isDarkMode.value
-              ? ThemeMode.dark
-              : ThemeMode.light,
+          themeMode: themeController.themeMode.value,
           initialRoute: AppPages.initial,
           getPages: AppPages.routes,
         ));

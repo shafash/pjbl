@@ -1,30 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'dart:math';
 
 class AdditionView extends StatelessWidget {
-  final List<Map<String, dynamic>> soalPenjumlahan = [
-    {"angka1": 2, "angka2": 3},
-    {"angka1": 4, "angka2": 5},
-    {"angka1": 6, "angka2": 2},
-    {"angka1": 1, "angka2": 7},
-    {"angka1": 3, "angka2": 6},
-    {"angka1": 5, "angka2": 4},
-  ];
-
-  final List<Color> warnaKartu = [
-    Colors.orange.shade200,
-    Colors.green.shade200,
-    Colors.purple.shade200,
-    Colors.blue.shade200,
-    Colors.pink.shade200,
-    Colors.teal.shade200,
+  final List<Map<String, String>> questions = [
+    {"question": "2 + 3 =", "answer": "5"},
+    {"question": "4 + 1 =", "answer": "5"},
+    {"question": "6 + 2 =", "answer": "8"},
+    {"question": "5 + 5 =", "answer": "10"},
+    {"question": "3 + 7 =", "answer": "10"},
+    {"question": "9 + 0 =", "answer": "9"},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow.shade50,
       appBar: AppBar(
         title: Text(
           'Belajar Penjumlahan',
@@ -34,88 +22,60 @@ class AdditionView extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.green,
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: GridView.builder(
-          itemCount: soalPenjumlahan.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.95,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-          ),
-          itemBuilder: (context, index) {
-            final soal = soalPenjumlahan[index];
-            final jawaban = soal["angka1"] + soal["angka2"];
-            final warna = warnaKartu[index % warnaKartu.length];
-
-            return GestureDetector(
-              onTap: () {
-                Get.dialog(
-                  AlertDialog(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    backgroundColor: Colors.orange.shade100,
-                    title: Text(
-                      "Yuk Hitung!",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    content: Text(
-                      "${soal["angka1"]} + ${soal["angka2"]} = $jawaban",
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Get.back(),
-                        child: Text("Oke"),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: warna,
-                  borderRadius: BorderRadius.circular(18),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 5,
-                      offset: Offset(2, 4),
-                    )
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/math_add.png", // bisa diganti gambar lucu
-                      height: 80,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "${soal["angka1"]} + ${soal["angka2"]} = ?",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'MochiyPopOne',
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Klik untuk lihat jawaban!",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
+      backgroundColor: Colors.green[50],
+      body: ListView.builder(
+        itemCount: questions.length,
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: (context, index) {
+          final item = questions[index];
+          return Card(
+            color: Colors.white,
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: ListTile(
+              leading: Icon(Icons.calculate, color: Colors.green, size: 32),
+              title: Text(
+                item['question']!,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green[800],
                 ),
               ),
-            );
-          },
-        ),
+              trailing: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green[300],
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text("Jawaban"),
+                      content: Text("${item['question']} ${item['answer']}"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text("Tutup"),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                child: Text("Lihat"),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

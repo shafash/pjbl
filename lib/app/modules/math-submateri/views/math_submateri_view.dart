@@ -7,7 +7,7 @@ class MathSubmateriView extends StatelessWidget {
       "title": "Bilangan",
       "image": "assets/math/numbers.png",
       "info": "Mari belajar mengenal dan menghitung bilangan!",
-      "route": "" // Belum dibuat
+      "route": "/numbers"
     },
     {
       "title": "Penjumlahan",
@@ -19,38 +19,38 @@ class MathSubmateriView extends StatelessWidget {
       "title": "Pengurangan",
       "image": "assets/math/subtraction.png",
       "info": "Pengurangan adalah proses mengurangi angka dari angka lainnya.",
-      "route": "" // Belum dibuat
+      "route": "/subtraction"
     },
     {
       "title": "Perkalian",
       "image": "assets/math/multiplication.png",
       "info": "Perkalian adalah penjumlahan berulang dari angka yang sama.",
-      "route": "" // Belum dibuat
+      "route": "/multiplication"
     },
     {
       "title": "Pembagian",
       "image": "assets/math/division.png",
       "info":
           "Pembagian adalah membagi angka menjadi beberapa bagian yang sama.",
-      "route": "" // Belum dibuat
+      "route": "/division"
     },
     {
       "title": "Bentuk Bangun",
       "image": "assets/math/shapes.png",
       "info": "Kenali bentuk seperti segitiga, persegi, dan lingkaran!",
-      "route": "/shapes" // Contoh jika sudah punya halaman shapes
+      "route": "/shape2"
     },
     {
       "title": "Pola dan Urutan",
       "image": "assets/math/patterns.png",
       "info": "Temukan pola dan susunan angka atau bentuk yang berulang!",
-      "route": "" // Belum dibuat
+      "route": "/pattern"
     },
     {
       "title": "Pengukuran",
       "image": "assets/math/measurement.png",
       "info": "Mari belajar mengukur panjang, berat, dan waktu.",
-      "route": "" // Belum dibuat
+      "route": "/measurement"
     },
   ];
 
@@ -84,6 +84,9 @@ class MathSubmateriView extends StatelessWidget {
             final topic = mathTopics[index];
             return GestureDetector(
               onTap: () {
+                final route = topic['route'] ?? "";
+                final hasRoute = route.isNotEmpty;
+
                 Get.dialog(
                   AlertDialog(
                     title: Text(topic['title']!),
@@ -93,6 +96,14 @@ class MathSubmateriView extends StatelessWidget {
                         onPressed: () => Get.back(),
                         child: Text("Tutup"),
                       ),
+                      if (hasRoute)
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                            Get.toNamed(route);
+                          },
+                          child: Text("Mulai Belajar"),
+                        ),
                     ],
                   ),
                 );
