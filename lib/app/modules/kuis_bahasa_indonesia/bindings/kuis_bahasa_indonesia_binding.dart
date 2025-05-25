@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../controllers/kuis_bahasa_indonesia_controller.dart';
 
 class KuisBahasaIndonesiaBinding extends Bindings {

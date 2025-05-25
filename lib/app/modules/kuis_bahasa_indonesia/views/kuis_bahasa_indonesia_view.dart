@@ -1,160 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:confetti/confetti.dart';
+import 'dart:math';
+import '../controllers/kuis_bahasa_indonesia_controller.dart';
 
-class KuisBahasaIndonesiaView extends StatefulWidget {
-  const KuisBahasaIndonesiaView({super.key});
-
-  @override
-  State<KuisBahasaIndonesiaView> createState() =>
-      _KuisBahasaIndonesiaViewState();
-}
-
-class _KuisBahasaIndonesiaViewState extends State<KuisBahasaIndonesiaView> {
-  int currentSoal = 0;
-  int score = 0;
-  bool sudahDijawab = false;
-  String? jawabanDipilih;
-
-  final List<Map<String, dynamic>> soalList = [
-    {
-      'pertanyaan': 'Apa sinonim dari kata "besar"?',
-      'opsi': ['Kecil', 'Raksasa', 'Pendek', 'Biasa'],
-      'jawaban': 'Raksasa',
-    },
-    {
-      'pertanyaan': 'Apa lawan kata "panas"?',
-      'opsi': ['Hangat', 'Terik', 'Dingin', 'Sejuk'],
-      'jawaban': 'Dingin',
-    },
-    {
-      'pertanyaan': 'Kata tanya "siapa" digunakan untuk?',
-      'opsi': ['Benda', 'Tempat', 'Orang', 'Waktu'],
-      'jawaban': 'Orang',
-    },
-    {
-      'pertanyaan': 'Contoh kata benda adalah?',
-      'opsi': ['Lari', 'Merah', 'Meja', 'Cantik'],
-      'jawaban': 'Meja',
-    },
-    {
-      'pertanyaan': 'Kalimat tanya diakhiri dengan?',
-      'opsi': ['Tanda seru', 'Tanda tanya', 'Titik', 'Koma'],
-      'jawaban': 'Tanda tanya',
-    },
-  ];
-
-  void cekJawaban(String jawaban) {
-    if (sudahDijawab) return;
-
-    setState(() {
-      jawabanDipilih = jawaban;
-      sudahDijawab = true;
-      if (jawaban == soalList[currentSoal]['jawaban']) {
-        score++;
-      }
-    });
-  }
-
-  void soalBerikutnya() {
-    if (currentSoal < soalList.length - 1) {
-      setState(() {
-        currentSoal++;
-        sudahDijawab = false;
-        jawabanDipilih = null;
-      });
-    } else {
-      // tampilkan skor
-      Get.defaultDialog(
-        title: 'Skor Akhir',
-        middleText:
-            'Kamu menjawab $score dari ${soalList.length} soal dengan benar!',
-        textConfirm: 'Ulangi',
-        textCancel: 'Keluar',
-        onConfirm: () {
-          setState(() {
-            currentSoal = 0;
-            score = 0;
-            sudahDijawab = false;
-            jawabanDipilih = null;
-          });
-          Get.back();
-        },
-        onCancel: () => Get.back(),
-      );
-    }
-  }
+class KuisBahasaIndonesiaView extends StatelessWidget {
+  const KuisBahasaIndonesiaView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final soal = soalList[currentSoal];
+    final c = Get.find<KuisBahasaIndonesiaController>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Kuis Bahasa Indonesia',
-          style: TextStyle(fontFamily: 'MochiyPopOne'),
-        ),
-        backgroundColor: Colors.redAccent,
+        title: const Text('Kuis Bahasa Indonesia'),
+        backgroundColor: Colors.lightBlueAccent,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Soal ${currentSoal + 1}/${soalList.length}',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      body: Stack(
+        children: [
+          // Confetti
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: c.confettiController,
+              blastDirection: pi / 2,
+              emissionFrequency: 0.05,
+              numberOfParticles: 20,
+              gravity: 0.25,
+              colors: const [
+                Colors.blue,
+                Colors.green,
+                Colors.orange,
+                Colors.pink,
+                Colors.purple
+              ],
             ),
-            const SizedBox(height: 10),
-            Text(
-              soal['pertanyaan'],
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 20),
-            ...List.generate(soal['opsi'].length, (i) {
-              final opsi = soal['opsi'][i];
-              final isBenar = opsi == soal['jawaban'];
-              final isDipilih = opsi == jawabanDipilih;
+          ),
+          // Konten Kuis
+          Obx(() {
+            final q = c.soalList[c.currentIndex.value];
+            final questionText = q['question'] as String;
+            final options = (q['options'] as List<dynamic>).cast<String>();
+            final correctAnswer = q['answer'] as String;
 
-              Color warna = Colors.grey.shade200;
-              if (sudahDijawab && isDipilih && isBenar) {
-                warna = Colors.greenAccent;
-              } else if (sudahDijawab && isDipilih && !isBenar) {
-                warna = Colors.redAccent.shade100;
-              }
-
-              return GestureDetector(
-                onTap: () => cekJawaban(opsi),
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: warna,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.black12),
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Soal ${c.currentIndex.value + 1}/${c.soalList.length}',
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  child: Text(
-                    opsi,
-                    style: const TextStyle(fontSize: 16),
+                  const SizedBox(height: 16),
+                  Text(
+                    questionText,
+                    style: const TextStyle(fontSize: 18),
                   ),
-                ),
-              );
-            }),
-            const SizedBox(height: 20),
-            if (sudahDijawab)
-              Center(
-                child: ElevatedButton(
-                  onPressed: soalBerikutnya,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                  ),
-                  child: Text(currentSoal == soalList.length - 1
-                      ? 'Lihat Skor'
-                      : 'Soal Berikutnya'),
-                ),
+                  const SizedBox(height: 16),
+                  ...options.map((opt) {
+                    final isCorrect = c.answered.value && opt == correctAnswer;
+                    final isWrong = c.answered.value &&
+                        opt != correctAnswer &&
+                        opt == opt &&
+                        opt != correctAnswer;
+                    return GestureDetector(
+                      onTap: () => c.answerQuestion(opt),
+                      child: Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(vertical: 6),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: c.answered.value
+                              ? (isCorrect
+                                  ? Colors.green
+                                  : isWrong
+                                      ? Colors.red.shade200
+                                      : Colors.grey.shade200)
+                              : Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(opt, style: const TextStyle(fontSize: 16)),
+                      ),
+                    );
+                  }).toList(),
+                  const SizedBox(height: 20),
+                  if (c.answered.value)
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: c.nextQuestion,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightBlueAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: const Text('Lanjut'),
+                      ),
+                    ),
+                ],
               ),
-          ],
-        ),
+            );
+          }),
+        ],
       ),
     );
   }

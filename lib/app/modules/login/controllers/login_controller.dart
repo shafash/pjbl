@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../services/auth_service.dart';
-import '../../../routes/app_pages.dart';
+import 'package:kelas_pintar/app/services/auth_service.dart';
+import 'package:kelas_pintar/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
   final emailController = TextEditingController();

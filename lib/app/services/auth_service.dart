@@ -6,10 +6,12 @@ class AuthService extends GetxService {
   final RxBool isLoggedIn = false.obs;
 
   Future<void> login(String email, String password) async {
-    if (email.isNotEmpty && password.isNotEmpty) {
+    await Future.delayed(const Duration(seconds: 1));
+    if (email.trim() == 'user@example.com' && password == 'password123') {
       isLoggedIn.value = true;
     } else {
-      throw Exception('Email dan password tidak boleh kosong');
+      isLoggedIn.value = false;
+      throw Exception('Email atau password salah');
     }
   }
 

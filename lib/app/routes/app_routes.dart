@@ -75,6 +75,16 @@ abstract class Routes {
   static const KUIS_MATEMATIKA = _Paths.KUIS_MATEMATIKA;
   static const KUIS_IPA = _Paths.KUIS_IPA;
   static const KUIS_IPS = _Paths.KUIS_IPS;
+  static const KUIS_PKN = _Paths.KUIS_PKN;
+  static const KUIS_SENI = _Paths.KUIS_SENI;
+  static const KUIS_BAHASA_INGGRIS = _Paths.KUIS_BAHASA_INGGRIS;
+  static const TUGAS = _Paths.TUGAS;
+  static const TUGAS_DETAIL = _Paths.TUGAS_DETAIL;
+  static const GAME_HUB = _Paths.GAME_HUB;
+  static const GAME_MONOPOLI = _Paths.GAME_MONOPOLI;
+  static const GAME_MATEMATIKA = _Paths.GAME_MATEMATIKA;
+  static const GAME_INGGRIS = _Paths.GAME_INGGRIS;
+  static const SETTING = _Paths.SETTING;
 }
 
 abstract class _Paths {
@@ -151,4 +161,14 @@ abstract class _Paths {
   static const KUIS_MATEMATIKA = '/kuis-matematika';
   static const KUIS_IPA = '/kuis-ipa';
   static const KUIS_IPS = '/kuis-ips';
+  static const KUIS_PKN = '/kuis-pkn';
+  static const KUIS_SENI = '/kuis-seni';
+  static const KUIS_BAHASA_INGGRIS = '/kuis-bahasa-inggris';
+  static const TUGAS = '/tugas';
+  static const TUGAS_DETAIL = '/tugas-detail';
+  static const GAME_HUB = '/game-hub';
+  static const GAME_MONOPOLI = '/game-monopoli';
+  static const GAME_MATEMATIKA = '/game-matematika';
+  static const GAME_INGGRIS = '/game-inggris';
+  static const SETTING = '/setting';
 }

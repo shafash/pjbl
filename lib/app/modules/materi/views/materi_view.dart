@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart'; // tambahkan ini
 import 'package:kelas_pintar/app/routes/app_pages.dart';
 
 class MateriView extends StatelessWidget {
@@ -38,9 +39,14 @@ class MateriView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Materi Pembelajaran',
-          style: TextStyle(color: Colors.brown),
+          style: GoogleFonts.mochiyPopOne(
+            // pakai MochiyPopOne
+            color: Colors.brown,
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -73,7 +79,8 @@ class MateriView extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text(
                       materi['title']!,
-                      style: const TextStyle(
+                      style: GoogleFonts.mochiyPopOne(
+                        // ganti juga sini
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.brown,

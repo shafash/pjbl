@@ -33,6 +33,14 @@ import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
 import '../modules/fruits/bindings/fruits_binding.dart';
 import '../modules/fruits/views/fruits_view.dart';
+import '../modules/game_hub/bindings/game_hub_binding.dart';
+import '../modules/game_hub/views/game_hub_view.dart';
+import '../modules/game_inggris/bindings/game_inggris_binding.dart';
+import '../modules/game_inggris/views/game_inggris_view.dart';
+import '../modules/game_matematika/bindings/game_matematika_binding.dart';
+import '../modules/game_matematika/views/game_matematika_view.dart';
+import '../modules/game_monopoli/bindings/game_monopoli_binding.dart';
+import '../modules/game_monopoli/views/game_monopoli_view.dart';
 import '../modules/ipa-benda-cair/bindings/ipa_benda_cair_binding.dart';
 import '../modules/ipa-benda-cair/views/ipa_benda_cair_view.dart';
 import '../modules/ipa-benda-gas/bindings/ipa_benda_gas_binding.dart';
@@ -65,12 +73,18 @@ import '../modules/kriya/bindings/kriya_binding.dart';
 import '../modules/kriya/views/kriya_view.dart';
 import '../modules/kuis_bahasa_indonesia/bindings/kuis_bahasa_indonesia_binding.dart';
 import '../modules/kuis_bahasa_indonesia/views/kuis_bahasa_indonesia_view.dart';
+import '../modules/kuis_bahasa_inggris/bindings/kuis_bahasa_inggris_binding.dart';
+import '../modules/kuis_bahasa_inggris/views/kuis_bahasa_inggris_view.dart';
 import '../modules/kuis_ipa/bindings/kuis_ipa_binding.dart';
 import '../modules/kuis_ipa/views/kuis_ipa_view.dart';
 import '../modules/kuis_ips/bindings/kuis_ips_binding.dart';
 import '../modules/kuis_ips/views/kuis_ips_view.dart';
 import '../modules/kuis_matematika/bindings/kuis_matematika_binding.dart';
 import '../modules/kuis_matematika/views/kuis_matematika_view.dart';
+import '../modules/kuis_pkn/bindings/kuis_pkn_binding.dart';
+import '../modules/kuis_pkn/views/kuis_pkn_view.dart';
+import '../modules/kuis_seni/bindings/kuis_seni_binding.dart';
+import '../modules/kuis_seni/views/kuis_seni_view.dart';
 import '../modules/lingkungan_sekitar/bindings/lingkungan_sekitar_binding.dart';
 import '../modules/lingkungan_sekitar/views/lingkungan_sekitar_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -104,6 +118,8 @@ import '../modules/puisi_pantun/bindings/puisi_pantun_binding.dart';
 import '../modules/puisi_pantun/views/puisi_pantun_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/setting/bindings/setting_binding.dart';
+import '../modules/setting/views/setting_view.dart';
 import '../modules/shape2/bindings/shape2_binding.dart';
 import '../modules/shape2/views/shape2_view.dart';
 import '../modules/shapes/bindings/shapes_binding.dart';
@@ -122,6 +138,10 @@ import '../modules/teks_deskriptif/bindings/teks_deskriptif_binding.dart';
 import '../modules/teks_deskriptif/views/teks_deskriptif_view.dart';
 import '../modules/teks_naratif/bindings/teks_naratif_binding.dart';
 import '../modules/teks_naratif/views/teks_naratif_view.dart';
+import '../modules/tugas/bindings/tugas_binding.dart';
+import '../modules/tugas/views/tugas_view.dart';
+import '../modules/tugas_detail/bindings/tugas_detail_binding.dart';
+import '../modules/tugas_detail/views/tugas_detail_view.dart';
 import '../modules/ubah_kata_sandi/bindings/ubah_kata_sandi_binding.dart';
 import '../modules/ubah_kata_sandi/views/ubah_kata_sandi_view.dart';
 import '../modules/vegetables/bindings/vegetables_binding.dart';
@@ -141,27 +161,27 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.SPLASH,
-      page: () => const SplashView(),
+      page: () => SplashView(),
       binding: SplashBinding(),
     ),
     GetPage(
       name: _Paths.WELCOME,
-      page: () => const WelcomeView(),
+      page: () => WelcomeView(),
       binding: WelcomeBinding(),
     ),
     GetPage(
       name: _Paths.LOGIN,
-      page: () => const LoginView(),
+      page: () => LoginView(),
       binding: LoginBinding(),
     ),
     GetPage(
       name: _Paths.REGISTER,
-      page: () => const RegisterView(),
+      page: () => RegisterView(),
       binding: RegisterBinding(),
     ),
     GetPage(
       name: _Paths.FORGOT_PASSWORD,
-      page: () => const ForgotPasswordView(),
+      page: () => ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
     ),
     GetPage(
@@ -186,7 +206,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFIL,
-      page: () => const ProfilView(),
+      page: () => ProfilView(),
       binding: ProfilBinding(),
     ),
     GetPage(
@@ -351,7 +371,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PETA_ARAH_MATA_ANGIN,
-      page: () => const PetaArahMataAnginView(),
+      page: () => PetaMataAnginView(),
       binding: PetaArahMataAnginBinding(),
     ),
     GetPage(
@@ -451,18 +471,68 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.KUIS_MATEMATIKA,
-      page: () => MathQuizView(),
-      binding: KuisMatematikaBinding(),
+      page: () => KuisMatematikaView(),
+      binding: KuisMathBinding(),
     ),
     GetPage(
       name: _Paths.KUIS_IPA,
-      page: () => ScienceQuizView(),
+      page: () => KuisIpaView(),
       binding: KuisIpaBinding(),
     ),
     GetPage(
       name: _Paths.KUIS_IPS,
       page: () => KuisIpsView(),
       binding: KuisIpsBinding(),
+    ),
+    GetPage(
+      name: _Paths.KUIS_PKN,
+      page: () => KuisPknView(),
+      binding: KuisPknBinding(),
+    ),
+    GetPage(
+      name: _Paths.KUIS_SENI,
+      page: () => KuisSbkView(),
+      binding: KuisSbkBinding(),
+    ),
+    GetPage(
+      name: _Paths.KUIS_BAHASA_INGGRIS,
+      page: () => KuisInggrisView(),
+      binding: KuisInggrisBinding(),
+    ),
+    GetPage(
+      name: _Paths.TUGAS,
+      page: () => TugasView(),
+      binding: TugasBinding(),
+    ),
+    GetPage(
+      name: _Paths.TUGAS_DETAIL,
+      page: () => TugasDetailView(),
+      binding: TugasDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.GAME_HUB,
+      page: () => GameHubView(),
+      binding: GameHubBinding(),
+    ),
+    GetPage(
+      name: _Paths.GAME_MONOPOLI,
+      page: () => GameMonopoliView(),
+      binding: GameMonopoliBinding(),
+    ),
+    GetPage(
+      name: _Paths.GAME_MATEMATIKA,
+      page: () => MathGameView(),
+      binding: GameMatematikaBinding(),
+    ),
+    GetPage(
+      name: _Paths.GAME_INGGRIS,
+      page: () => const GameInggrisView(),
+      binding: GameInggrisBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTING,
+      page: () => const SettingView(),
+      binding: SettingBinding(),
     ),
   ];
 }

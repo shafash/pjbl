@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ForgotPasswordController extends GetxController {
-  final emailController = TextEditingController();
-
-  void sendResetLink() {
-    final email = emailController.text.trim();
-    if (email.isEmpty) {
-      Get.snackbar("Error", "Email tidak boleh kosong");
+  void sendResetLink(String email) {
+    if (!email.contains('@') || !email.contains('.')) {
+      Get.snackbar(
+        'Error',
+        'Email tidak valid',
+        backgroundColor: Colors.red.shade100,
+        colorText: Colors.black,
+        snackPosition: SnackPosition.TOP,
+      );
     } else {
-      // Simulasikan pengiriman email reset
-      Get.snackbar("Sukses", "Link reset password telah dikirim ke $email");
+      Get.snackbar(
+        'Sukses',
+        'Link reset telah dikirim ke $email',
+        backgroundColor: Colors.green.shade100,
+        colorText: Colors.black,
+        snackPosition: SnackPosition.TOP,
+      );
     }
-  }
-
-  @override
-  void onClose() {
-    emailController.dispose();
-    super.onClose();
   }
 }

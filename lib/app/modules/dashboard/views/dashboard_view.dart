@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../controllers/dashboard_controller.dart';
+import 'package:kelas_pintar/app/routes/app_pages.dart'; // pastikan ini import route-nya
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -8,158 +10,156 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
+      backgroundColor: const Color(0xFFFFFBF3), // krem lembut
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFFFFBF3),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.person, color: Colors.brown),
+          onPressed: () => Get.toNamed(Routes.PROFIL), // route profil
+          tooltip: 'Profil',
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.brown),
+            onPressed: () => Get.toNamed(Routes.SETTING), // route setting
+            tooltip: 'Setting',
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Obx(() {
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(Icons.settings, color: Colors.brown),
-                  GestureDetector(
-                    onTap: () => Get.toNamed('/profil'),
-                    child: const CircleAvatar(
-                      backgroundImage: AssetImage('assets/profil.png'),
-                      radius: 20,
-                    ),
-                  ),
-                ],
+              Text(
+                'Hai, ${controller.userName.value}!',
+                style: GoogleFonts.mochiyPopOne(
+                  fontSize: 20,
+                  color: Colors.brown.shade700,
+                ),
               ),
               const SizedBox(height: 20),
-              Obx(
-                () => Text(
-                  "Hai ${controller.userName.value}!!",
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.brown,
+
+              // Search Bar
+              TextField(
+                onChanged: (value) => controller.searchQuery.value = value,
+                decoration: InputDecoration(
+                  hintText: 'Cari materi...',
+                  hintStyle: const TextStyle(color: Colors.brown),
+                  prefixIcon: const Icon(Icons.search, color: Colors.brown),
+                  filled: true,
+                  fillColor: Colors.brown.withOpacity(0.05),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.brown),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 4,
-                      offset: Offset(2, 2),
-                    ),
-                  ],
-                ),
-                child: TextFormField(
-                  onFieldSubmitted: (query) {
-                    controller.searchQuery.value = query.trim().toLowerCase();
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Cari...',
-                    border: InputBorder.none,
-                    icon: Icon(Icons.search, color: Colors.brown),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
+
+              // Tombol kecil
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:
                     List.generate(controller.smallButtons.length, (index) {
-                  final btn = controller.smallButtons[index];
+                  final button = controller.smallButtons[index];
+                  final pastelColors = [
+                    Colors.pink.shade100,
+                    Colors.green.shade100,
+                    Colors.yellow.shade100,
+                    Colors.blue.shade100,
+                  ];
                   return GestureDetector(
-                    onTap: () {
-                      final route = btn['route'];
-                      if (route != null && route.isNotEmpty) {
-                        Get.toNamed(route);
-                      }
-                    },
+                    onTap: () => Get.toNamed(button['route']!),
                     child: Column(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.brown, width: 2),
-                          ),
-                          child: Image.asset(btn['icon']!, height: 24),
+                        MouseRegion(
+                          onEnter: (_) => controller.setHover(index, true),
+                          onExit: (_) => controller.setHover(index, false),
+                          child: Obx(() {
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: controller.hoverStates[index].value
+                                    ? pastelColors[index].withOpacity(0.8)
+                                    : pastelColors[index],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Image.asset(button['icon']!,
+                                    fit: BoxFit.contain),
+                              ),
+                            );
+                          }),
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          btn['label']!,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.brown,
-                          ),
-                        ),
+                        const SizedBox(height: 4),
+                        Text(button['label']!,
+                            style: const TextStyle(color: Colors.brown)),
                       ],
                     ),
                   );
                 }),
               ),
               const SizedBox(height: 20),
-              Expanded(
-                child: Obx(() {
-                  final search = controller.searchQuery.value;
-                  final filteredSubjects = controller.subjects
-                      .where(
-                        (subject) =>
-                            subject['name']!.toLowerCase().contains(search),
-                      )
-                      .take(6)
-                      .toList();
 
-                  return GridView.builder(
-                    itemCount: filteredSubjects.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 3 / 4,
-                    ),
-                    itemBuilder: (context, index) {
-                      final subject = filteredSubjects[index];
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(subject['route']!),
-                        child: Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.brown),
-                            borderRadius: BorderRadius.circular(16),
+              // Subject grid
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  children: controller.frequentlyVisitedSubjects.map((subject) {
+                    return GestureDetector(
+                      onTap: () {
+                        controller.recordVisit(subject['route']!);
+                        controller.goToSubject(subject['route']!);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.white, Colors.orange.shade100],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                subject['icon']!,
-                                height: 80,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.image_not_supported),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                subject['name']!,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.brown,
-                                ),
-                              ),
-                            ],
-                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.orange.shade100,
+                              offset: const Offset(2, 2),
+                              blurRadius: 4,
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  );
-                }),
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(subject['icon']!, height: 80),
+                            const SizedBox(height: 10),
+                            Text(
+                              subject['name']!,
+                              style: GoogleFonts.mochiyPopOne(
+                                fontSize: 16,
+                                color: Colors.brown.shade800,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ],
-          ),
-        ),
+          );
+        }),
       ),
     );
   }

@@ -1,200 +1,177 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/app/routes/app_pages.dart';
 
-class DummyAuthService {
-  // Simulasi daftar user
-  Future<bool> register(String email, String password) async {
-    await Future.delayed(const Duration(seconds: 1)); // simulasi delay
-    if (email.contains('@') && password.length >= 6) {
-      return true; // sukses daftar
-    } else {
-      return false; // gagal daftar
-    }
-  }
-}
+class RegisterView extends StatelessWidget {
+  RegisterView({Key? key}) : super(key: key);
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
-
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final DummyAuthService authService = DummyAuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
-  bool _isLoading = false;
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required bool isDark,
-    bool isPassword = false,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassword,
-      style: TextStyle(color: isDark ? Colors.white : Colors.black87),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: isDark ? Colors.white70 : Colors.black54),
-        filled: true,
-        fillColor:
-            isDark ? Colors.red.shade900.withOpacity(0.2) : Colors.grey[200],
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide:
-              BorderSide(color: isDark ? Colors.white : Colors.red.shade900),
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return '$label tidak boleh kosong';
-        }
-        if (label == 'Email' && !GetUtils.isEmail(value)) {
-          return 'Email tidak valid';
-        }
-        if (label == 'Password' && value.length < 6) {
-          return 'Password minimal 6 karakter';
-        }
-        if (label == 'Konfirmasi Password' &&
-            value != passwordController.text) {
-          return 'Konfirmasi password tidak cocok';
-        }
-        return null;
-      },
-    );
-  }
-
-  Future<void> _register() async {
-    if (!_formKey.currentState!.validate()) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    final email = emailController.text.trim();
-    final password = passwordController.text;
-
-    bool success = await authService.register(email, password);
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (success) {
-      Get.snackbar(
-        'Sukses',
-        'Registrasi berhasil. Silakan login.',
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 3),
-      );
-
-      // Reset field
-      emailController.clear();
-      passwordController.clear();
-      confirmPasswordController.clear();
-
-      // Navigasi kembali ke LoginView
-      Get.back();
-    } else {
-      Get.snackbar(
-        'Gagal',
-        'Registrasi gagal. Periksa kembali input Anda.',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 3),
-      );
-    }
-  }
+  final Color bgColor = const Color(0xFFFFFBF3); // krem lembut
+  final Color accentColor = Colors.redAccent.shade700; // merah tegas
+  final Color textColor = Colors.brown.shade900; // coklat gelap
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF8B0000) : Colors.white,
+      backgroundColor: bgColor,
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Daftar',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : Colors.red.shade900,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  _buildTextField(
-                    controller: emailController,
-                    label: 'Email',
-                    isDark: isDark,
-                  ),
-                  const SizedBox(height: 20),
-                  _buildTextField(
-                    controller: passwordController,
-                    label: 'Password',
-                    isDark: isDark,
-                    isPassword: true,
-                  ),
-                  const SizedBox(height: 20),
-                  _buildTextField(
-                    controller: confirmPasswordController,
-                    label: 'Konfirmasi Password',
-                    isDark: isDark,
-                    isPassword: true,
-                  ),
-                  const SizedBox(height: 30),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: _isLoading ? null : _register,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            isDark ? Colors.red.shade900 : Colors.red.shade700,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: _isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : const Text('Daftar'),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextButton(
-                    onPressed: () => Get.back(),
-                    style: TextButton.styleFrom(
-                      foregroundColor:
-                          isDark ? Colors.white : Colors.red.shade900,
-                    ),
-                    child: const Text('Sudah punya akun? Masuk'),
-                  ),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+          child: Form(
+            key: _formKey,
+            child: ListView(children: [
+              const Icon(Icons.app_registration,
+                  size: 80, color: Colors.redAccent),
+              const SizedBox(height: 24),
+              Text(
+                'Daftar',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.mochiyPopOne(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
+                ),
               ),
-            ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email_outlined, color: accentColor),
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelStyle:
+                      GoogleFonts.mochiyPopOne(color: Colors.brown.shade700),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: accentColor),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                ),
+                style: GoogleFonts.mochiyPopOne(color: textColor),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Email tidak boleh kosong';
+                  }
+                  if (!value.contains('@') || !value.contains('.')) {
+                    return 'Email tidak valid';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Kata Sandi',
+                  prefixIcon: Icon(Icons.lock_outline, color: accentColor),
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelStyle:
+                      GoogleFonts.mochiyPopOne(color: Colors.brown.shade700),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: accentColor),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                ),
+                style: GoogleFonts.mochiyPopOne(color: textColor),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Kata sandi tidak boleh kosong';
+                  }
+                  if (value.length < 6) {
+                    return 'Password minimal 6 karakter';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: confirmPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Konfirmasi Kata Sandi',
+                  prefixIcon: Icon(Icons.lock_outline, color: accentColor),
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelStyle:
+                      GoogleFonts.mochiyPopOne(color: Colors.brown.shade700),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: accentColor),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                ),
+                style: GoogleFonts.mochiyPopOne(color: textColor),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Konfirmasi kata sandi tidak boleh kosong';
+                  }
+                  if (value != passwordController.text) {
+                    return 'Kata sandi tidak cocok';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Proses registrasi sukses, lanjut ke login
+                      Get.snackbar(
+                        'Registrasi',
+                        'Berhasil daftar',
+                        backgroundColor: Colors.green,
+                        colorText: Colors.white,
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+
+                      // Navigasi ke halaman login
+                      Get.offNamed(Routes.LOGIN);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: accentColor,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: Text(
+                    'Daftar',
+                    style: GoogleFonts.mochiyPopOne(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () => Get.offNamed(Routes.LOGIN),
+                child: Text(
+                  'Sudah punya akun? Masuk di sini',
+                  style: GoogleFonts.mochiyPopOne(color: accentColor),
+                ),
+              ),
+            ]),
           ),
         ),
       ),

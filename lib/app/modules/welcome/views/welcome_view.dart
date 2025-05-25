@@ -1,51 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeView extends StatelessWidget {
-  const WelcomeView({super.key}); // ✔️ Menggunakan super parameter
-
   @override
   Widget build(BuildContext context) {
+    final Color bgColor = const Color(0xFFFFF8E1); // samain sama splash
+    final Color textColor = const Color(0xFF6D4C41);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF7A1212), // ✔️ const untuk warna tetap
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset('assets/splash.png',
-                  height: 250), // tidak perlu const
-              const SizedBox(height: 16),
-              const Text(
-                "Belajar menjadi lebih menyenangkan",
-                style: TextStyle(
+      backgroundColor: bgColor,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/splash.png', width: 160),
+            const SizedBox(height: 36),
+            Text(
+              'Selamat Datang di Kelas Pintar!',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.mochiyPopOne(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Tempat terbaik untuk belajar dan bermain.',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.mochiyPopOne(
+                fontSize: 16,
+                color: textColor.withOpacity(0.8),
+              ),
+            ),
+            const SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () => Get.toNamed('/login'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFBC02D), // pastel gold
+                padding:
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 80),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
+              child: Text(
+                'Mulai',
+                style: GoogleFonts.mochiyPopOne(
                   fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 12,
-                  ),
-                ),
-                onPressed: () => Get.offNamed('/login'),
-                child: const Text(
-                  "Masuk untuk memulai",
-                  style: TextStyle(fontSize: 16, color: Color(0xFF7A1212)),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.brown.shade900,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

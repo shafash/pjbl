@@ -1,111 +1,119 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class ForgotPasswordView extends StatefulWidget {
-  const ForgotPasswordView({Key? key}) : super(key: key);
+class ForgotPasswordView extends StatelessWidget {
+  ForgotPasswordView({Key? key}) : super(key: key);
 
-  @override
-  State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
-}
-
-class _ForgotPasswordViewState extends State<ForgotPasswordView> {
-  final emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
 
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required bool isDark,
-  }) {
-    return TextFormField(
-      controller: controller,
-      style: TextStyle(color: isDark ? Colors.white : Colors.black87),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: isDark ? Colors.white70 : Colors.black54),
-        filled: true,
-        fillColor:
-            isDark ? Colors.red.shade900.withOpacity(0.2) : Colors.grey[200],
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide:
-              BorderSide(color: isDark ? Colors.white : Colors.red.shade900),
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Email tidak boleh kosong';
-        }
-        return null;
-      },
-    );
-  }
+  final Color bgColor = const Color(0xFFFFFBF3); // krem lembut
+  final Color accentColor = Colors.redAccent.shade700; // merah tegas
+  final Color textColor = Colors.brown.shade900; // coklat gelap
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
-      backgroundColor: isDark ? Color(0xFF8B0000) : Colors.white,
+      backgroundColor: bgColor,
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Reset Kata Sandi',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : Colors.red.shade900,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                const Icon(Icons.lock_reset, size: 80, color: Colors.redAccent),
+                const SizedBox(height: 24),
+                Text(
+                  'Lupa Kata Sandi',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.mochiyPopOne(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Masukkan email akunmu. Kami akan mengirimkan tautan untuk reset kata sandi.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.mochiyPopOne(
+                    fontSize: 14,
+                    color: textColor,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    prefixIcon: Icon(Icons.email_outlined, color: accentColor),
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelStyle:
+                        GoogleFonts.mochiyPopOne(color: Colors.brown.shade700),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: accentColor),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  _buildTextField(
-                    controller: emailController,
-                    label: 'Email',
-                    isDark: isDark,
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // logic reset password
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            isDark ? Colors.red.shade900 : Colors.red.shade700,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                  style: GoogleFonts.mochiyPopOne(color: textColor),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email tidak boleh kosong';
+                    }
+                    if (!value.contains('@') || !value.contains('.')) {
+                      return 'Email tidak valid';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Get.snackbar(
+                          'Email Dikirim',
+                          'Periksa email untuk reset kata sandi',
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        Get.back();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: accentColor,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                      child: const Text('Kirim Link Reset'),
+                    ),
+                    child: Text(
+                      'Kirim Tautan Reset',
+                      style: GoogleFonts.mochiyPopOne(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  TextButton(
-                    onPressed: () => Get.back(),
-                    style: TextButton.styleFrom(
-                      foregroundColor:
-                          isDark ? Colors.white : Colors.red.shade900,
-                    ),
-                    child: const Text('Kembali ke Login'),
+                ),
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: Text(
+                    'Kembali ke Login',
+                    style: GoogleFonts.mochiyPopOne(color: accentColor),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

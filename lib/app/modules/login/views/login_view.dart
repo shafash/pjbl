@@ -1,129 +1,163 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/login_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kelas_pintar/app/routes/app_pages.dart';
+import 'package:kelas_pintar/app/services/auth_service.dart'; // Tambahkan ini
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class LoginView extends StatelessWidget {
+  LoginView({Key? key}) : super(key: key);
 
-  @override
-  State<LoginView> createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
-  final LoginController controller = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required bool isDark,
-    bool isPassword = false,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassword,
-      style: TextStyle(color: isDark ? Colors.white : Colors.black87),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: isDark ? Colors.white70 : Colors.black54),
-        filled: true,
-        fillColor:
-            isDark ? Colors.red.shade900.withOpacity(0.2) : Colors.grey[200],
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide:
-              BorderSide(color: isDark ? Colors.white : Colors.red.shade900),
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return '$label tidak boleh kosong';
-        }
-        return null;
-      },
-    );
-  }
+  final Color bgColor = const Color(0xFFFFFBF3); // krem lembut
+  final Color accentColor = Colors.redAccent; // aksen merah
+  final Color textColor = Colors.brown.shade800;
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF8B0000) : Colors.white,
+      backgroundColor: bgColor,
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : Colors.red.shade900,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                const Icon(Icons.login, size: 80, color: Colors.redAccent),
+                const SizedBox(height: 24),
+                Text(
+                  'Masuk',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.mochiyPopOne(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    prefixIcon: const Icon(Icons.email_outlined,
+                        color: Colors.redAccent),
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelStyle:
+                        GoogleFonts.mochiyPopOne(color: Colors.brown.shade600),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.redAccent),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  _buildTextField(
-                    controller: controller.emailController,
-                    label: 'Email',
-                    isDark: isDark,
+                  style: GoogleFonts.mochiyPopOne(color: Colors.brown.shade800),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email tidak boleh kosong';
+                    }
+                    if (!value.contains('@') || !value.contains('.')) {
+                      return 'Email tidak valid';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Kata Sandi',
+                    prefixIcon:
+                        const Icon(Icons.lock_outline, color: Colors.redAccent),
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelStyle:
+                        GoogleFonts.mochiyPopOne(color: Colors.brown.shade600),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.redAccent),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
                   ),
-                  const SizedBox(height: 20),
-                  _buildTextField(
-                    controller: controller.passwordController,
-                    label: 'Password',
-                    isDark: isDark,
-                    isPassword: true,
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          controller.login();
+                  style: GoogleFonts.mochiyPopOne(color: Colors.brown.shade800),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Kata sandi tidak boleh kosong';
+                    }
+                    if (value.length < 6) {
+                      return 'Password minimal 6 karakter';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        try {
+                          await AuthService.to.login(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                          Get.offNamed(Routes.DASHBOARD);
+                        } catch (e) {
+                          Get.snackbar(
+                            'Login Gagal',
+                            e.toString().replaceAll('Exception: ', ''),
+                            backgroundColor: Colors.redAccent,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.TOP,
+                          );
                         }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            isDark ? Colors.red.shade900 : Colors.red.shade700,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: accentColor,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                      child: const Text('Masuk'),
+                    ),
+                    child: Text(
+                      'Masuk',
+                      style: GoogleFonts.mochiyPopOne(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  TextButton(
-                    onPressed: () => Get.toNamed('/forgot-password'),
-                    style: TextButton.styleFrom(
-                      foregroundColor:
-                          isDark ? Colors.white : Colors.red.shade900,
-                    ),
-                    child: const Text('Lupa Kata Sandi?'),
+                ),
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.FORGOT_PASSWORD);
+                  },
+                  child: Text(
+                    'Lupa kata sandi?',
+                    style: GoogleFonts.mochiyPopOne(color: Colors.redAccent),
                   ),
-                  const SizedBox(height: 10),
-                  TextButton(
-                    onPressed: () => Get.toNamed('/register'),
-                    style: TextButton.styleFrom(
-                      foregroundColor:
-                          isDark ? Colors.white : Colors.red.shade900,
-                    ),
-                    child: const Text('Belum punya akun? Daftar'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.REGISTER);
+                  },
+                  child: Text(
+                    'Belum punya akun? Daftar di sini',
+                    style: GoogleFonts.mochiyPopOne(color: Colors.redAccent),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

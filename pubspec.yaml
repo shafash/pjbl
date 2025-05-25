@@ -15,6 +15,11 @@ dependencies:
   get_storage: ^2.1.1
   google_fonts: ^6.1.0
   flutter_svg: ^2.0.7
+  confetti: ^0.7.0
+  intl: ^0.18.1
+  image_picker: ^1.0.4
+  file_picker: ^6.1.1
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:
@@ -183,8 +188,14 @@ flutter:
     - assets/tata_surya/sun.png
     - assets/tata_surya/uranus.png
     - assets/tata_surya/venus.png
-    - assets/kompas.png
-
+    - assets/arah_mata_angin/barat_daya.png
+    - assets/arah_mata_angin/barat_laut.png
+    - assets/arah_mata_angin/barat.png
+    - assets/arah_mata_angin/selatan.png
+    - assets/arah_mata_angin/tenggara.png
+    - assets/arah_mata_angin/timur_laut.png
+    - assets/arah_mata_angin/timur.png
+    - assets/arah_mata_angin/utara.png
 
   fonts:
     - family: MochiyPopOne

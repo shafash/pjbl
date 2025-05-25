@@ -1,23 +1,24 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import '../../../routes/app_pages.dart'; // pastikan ini diimpor
+import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void register() {
-    final email = emailController.text;
-    final password = passwordController.text;
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
 
     if (email.isEmpty || password.isEmpty) {
       Get.snackbar("Registrasi Gagal", "Email dan Password wajib diisi");
       return;
     }
 
-    Get.snackbar("Registrasi Berhasil", "Silakan login dengan akun Anda");
-
-    Get.offAllNamed(Routes.LOGIN);
+    // Simulasi delay registrasi sukses
+    Future.delayed(const Duration(seconds: 1), () {
+      Get.snackbar("Registrasi Berhasil", "Silakan login dengan akun Anda");
+      Get.offAllNamed('/login');
+    });
   }
 
   @override
