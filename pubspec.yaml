@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  get: ^4.6.5
+  get: ^4.6.6
   get_storage: ^2.1.1
   google_fonts: ^6.1.0
   flutter_svg: ^2.0.7
@@ -20,6 +20,8 @@ dependencies:
   image_picker: ^1.0.4
   file_picker: ^6.1.1
   lottie: ^2.7.0
+  audioplayers: ^5.2.1
+  just_audio: ^0.9.36
 
 dev_dependencies:
   flutter_test:
@@ -224,6 +226,7 @@ flutter:
     - assets/ulundanu.jpg
     - assets/prambanan.jpg
     - assets/borobudur.jpg
+    - assets/audio/just-relax-11157.mp3
 
   fonts:
     - family: MochiyPopOne

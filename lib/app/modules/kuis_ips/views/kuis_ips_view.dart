@@ -13,8 +13,15 @@ class KuisIpsView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kuis IPS'),
+        title: const Text(
+          'Kuis IPS',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.orange,
+        centerTitle: true,
       ),
       body: Stack(
         children: [

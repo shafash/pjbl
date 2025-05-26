@@ -13,8 +13,15 @@ class KuisIpaView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kuis IPA'),
+        title: const Text(
+          'Kuis IPA',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.green,
+        centerTitle: true,
       ),
       body: Stack(
         children: [

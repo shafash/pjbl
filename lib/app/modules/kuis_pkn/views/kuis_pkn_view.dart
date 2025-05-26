@@ -13,8 +13,15 @@ class KuisPknView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kuis PPKn'),
+        title: const Text(
+          'Kuis PKN',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.lightBlueAccent,
+        centerTitle: true,
       ),
       body: Stack(
         children: [

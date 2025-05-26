@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kelas_pintar/app/controllers/audio_controller.dart';
+import 'package:kelas_pintar/app/controllers/theme_controller.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AudioController audioController = Get.find<AudioController>();
+    final ThemeController themeController = Get.find<ThemeController>();
+
     return Scaffold(
       backgroundColor: const Color(0xFFFFF0F5),
       appBar: AppBar(
@@ -25,47 +30,20 @@ class SettingsView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          _buildSettingCard(
-            icon: Icons.color_lens,
-            title: "Theme Mode",
-            subtitle: Get.isDarkMode ? "Dark Mode 🌙" : "Light Mode ☀️",
-            onTap: () {
-              Get.changeThemeMode(
-                Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
-              );
-            },
-          ),
+          Obx(() => _buildSettingCard(
+                icon: Icons.color_lens,
+                title: "Theme Mode",
+                subtitle: themeController.isDarkMode.value
+                    ? "Dark Mode 🌙"
+                    : "Light Mode ☀️",
+                onTap: () => themeController.toggleTheme(),
+              )),
           const SizedBox(height: 20),
           _buildSettingCard(
             icon: Icons.volume_up,
-            title: "Sound Effects",
-            subtitle: "Click sounds & feedback 🔊",
-            onTap: () {
-              Get.snackbar(
-                "Coming Soon!",
-                "Fitur suara segera hadir!",
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: Colors.white,
-                colorText: Colors.deepPurple,
-                duration: const Duration(seconds: 2),
-              );
-            },
-          ),
-          const SizedBox(height: 20),
-          _buildSettingCard(
-            icon: Icons.music_note,
             title: "Background Music",
-            subtitle: "Turn music on or off 🎵",
-            onTap: () {
-              Get.snackbar(
-                "Coming Soon!",
-                "Fitur musik latar akan segera hadir!",
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: Colors.white,
-                colorText: Colors.deepPurple,
-                duration: const Duration(seconds: 2),
-              );
-            },
+            subtitle: "Volume & mute control 🎵",
+            onTap: () => _showMusicControlBottomSheet(context, audioController),
           ),
           const SizedBox(height: 20),
           _buildSettingCard(
@@ -92,6 +70,60 @@ class SettingsView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void _showMusicControlBottomSheet(
+      BuildContext context, AudioController controller) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Background Music Control",
+                style: TextStyle(
+                  fontFamily: 'MochiyPopOne',
+                  fontSize: 18,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Obx(() => Row(
+                    children: [
+                      const Icon(Icons.volume_down),
+                      Expanded(
+                        child: Slider(
+                          value: controller.volume.value,
+                          min: 0,
+                          max: 1,
+                          divisions: 10,
+                          label: (controller.volume.value * 100)
+                              .round()
+                              .toString(),
+                          onChanged: controller.setVolume,
+                        ),
+                      ),
+                      const Icon(Icons.volume_up),
+                    ],
+                  )),
+              const SizedBox(height: 10),
+              Obx(() => SwitchListTile.adaptive(
+                    title: const Text("Mute Music"),
+                    value: controller.isMuted.value,
+                    onChanged: (value) => controller.toggleMute(),
+                  )),
+            ],
+          ),
+        );
+      },
     );
   }
 

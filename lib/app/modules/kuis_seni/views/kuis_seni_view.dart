@@ -20,8 +20,8 @@ class KuisSbkView extends GetView<KuisSeniController> {
       ),
       confirm: ElevatedButton(
         onPressed: () {
-          Get.back(); // tutup dialog
-          Get.back(); // kembali ke halaman sebelumnya
+          Get.back();
+          Get.back();
           controller.resetKuis();
         },
         style: ElevatedButton.styleFrom(

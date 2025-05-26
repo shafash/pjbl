@@ -14,8 +14,15 @@ class KuisMatematikaView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kuis Matematika'),
+        title: const Text(
+          'Kuis Matematika',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.red.shade400,
+        centerTitle: true,
       ),
       body: Stack(
         children: [

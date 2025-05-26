@@ -19,6 +19,7 @@ class KuisInggrisView extends StatelessWidget {
           style: GoogleFonts.mochiyPopOne(fontSize: 20),
         ),
         backgroundColor: Colors.blue,
+        centerTitle: true,
       ),
       body: Stack(
         children: [
