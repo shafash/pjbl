@@ -7,10 +7,10 @@ class GameHubView extends StatelessWidget {
 
   final List<GameInfo> games = [
     GameInfo(
-      title: 'Monopoli Negara',
-      emoji: '🌍',
-      description: 'Tebak negara dari petunjuk dan jelajahi dunia!',
-      routeName: Routes.GAME_MONOPOLI,
+      title: 'Tempat Wisata Bersejarah',
+      emoji: '🗺️',
+      description: 'Tebak nama tempat wisata bersejarah di Indonesia!',
+      routeName: Routes.TEBAK_TEMPAT,
     ),
     GameInfo(
       title: 'Matematika Asiikkkk',

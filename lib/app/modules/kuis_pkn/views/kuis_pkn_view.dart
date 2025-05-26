@@ -9,7 +9,7 @@ class KuisPknView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(KuisPknController());
+    final controller = Get.put(KuisPknController());
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +21,7 @@ class KuisPknView extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: ConfettiWidget(
-              confettiController: c.confettiController,
+              confettiController: controller.confettiController,
               blastDirection: pi / 2,
               emissionFrequency: 0.05,
               numberOfParticles: 20,
@@ -36,9 +36,11 @@ class KuisPknView extends StatelessWidget {
             ),
           ),
           Obx(() {
-            final Map<String, dynamic> q = c.soalList[c.currentIndex.value];
-            final options = (q['options'] as List).cast<String>();
-            final correctAnswer = q['answer'] as String;
+            final currentQuestion =
+                controller.soalList[controller.currentIndex.value];
+            final questionText = currentQuestion['question'] as String;
+            final options = (currentQuestion['options'] as List).cast<String>();
+            final correctAnswer = currentQuestion['answer'] as String;
 
             return Padding(
               padding: const EdgeInsets.all(16),
@@ -46,60 +48,76 @@ class KuisPknView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Soal ${c.currentIndex.value + 1}/${c.soalList.length}',
+                    'Soal ${controller.currentIndex.value + 1}/${controller.soalList.length}',
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    q['question'],
+                    questionText,
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 16),
-                  ...options.map((opt) {
+                  ...options.map((option) {
                     Color bgColor = Colors.grey.shade200;
 
-                    if (c.answered.value) {
-                      if (opt == correctAnswer) {
-                        bgColor = Colors.green;
-                      } else {
+                    if (controller.answered.value) {
+                      if (option == correctAnswer) {
+                        bgColor = Colors.green.shade400;
+                      } else if (option != correctAnswer &&
+                          option == option &&
+                          !controller.correct.value) {
+                        // Incorrect selected option
                         bgColor = Colors.red.shade200;
+                      } else {
+                        bgColor = Colors.grey.shade200;
                       }
                     }
 
                     return GestureDetector(
-                      onTap: () => c.answerQuestion(opt),
+                      onTap: () => controller.answerQuestion(option),
                       child: Container(
                         width: double.infinity,
                         margin: const EdgeInsets.symmetric(vertical: 6),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: c.answered.value
-                              ? (opt == correctAnswer
-                                  ? Colors.green
-                                  : Colors.red.shade200)
-                              : Colors.grey.shade200,
+                          color: bgColor,
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: controller.answered.value
+                                ? (option == correctAnswer
+                                    ? Colors.green.shade700
+                                    : Colors.red.shade300)
+                                : Colors.grey.shade400,
+                            width: 1.5,
+                          ),
                         ),
                         child: Text(
-                          opt,
+                          option,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     );
                   }).toList(),
                   const SizedBox(height: 20),
-                  if (c.answered.value)
+                  if (controller.answered.value)
                     Center(
                       child: ElevatedButton(
-                        onPressed: c.nextQuestion,
+                        onPressed: controller.nextQuestion,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.lightBlueAccent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 14),
                         ),
-                        child: const Text('Lanjut'),
+                        child: const Text(
+                          'Lanjut',
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
                     ),
                 ],

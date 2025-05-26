@@ -13,30 +13,35 @@ class SubMateriIpsView extends StatelessWidget {
         'icon': Icons.nature,
         'route': '/lingkungan-sekitar',
         'color': Colors.lightGreen.shade200,
+        'textColor': Colors.green.shade900,
       },
       {
         'title': 'Peta & Arah Mata Angin',
         'icon': Icons.explore,
         'route': '/peta-arah-mata-angin',
         'color': Colors.lightBlue.shade200,
+        'textColor': Colors.blue.shade900,
       },
       {
         'title': 'Kebudayaan & Tradisi',
         'icon': Icons.festival,
         'route': '/kebudayaan-tradisi',
         'color': Colors.orange.shade200,
+        'textColor': Colors.deepOrange.shade900,
       },
       {
         'title': 'Pekerjaan Sekitar',
         'icon': Icons.work,
         'route': '/pekerjaan-sekitar',
         'color': Colors.purple.shade200,
+        'textColor': Colors.deepPurple.shade900,
       },
       {
         'title': 'Tanggung Jawab di Sekolah',
         'icon': Icons.school,
         'route': '/tanggung-jawab-sekolah',
         'color': Colors.pink.shade200,
+        'textColor': Colors.pink.shade900,
       },
     ];
 
@@ -86,7 +91,7 @@ class SubMateriIpsView extends StatelessWidget {
                     Icon(
                       item['icon'],
                       size: 50,
-                      color: Colors.white,
+                      color: item['textColor'],
                     ),
                     const SizedBox(height: 12),
                     Padding(
@@ -96,7 +101,7 @@ class SubMateriIpsView extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.mochiyPopOne(
                           fontSize: 14,
-                          color: Colors.white,
+                          color: item['textColor'], // warna teks kontras
                         ),
                       ),
                     ),

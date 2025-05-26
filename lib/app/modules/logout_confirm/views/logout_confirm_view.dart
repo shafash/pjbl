@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../services/auth_service.dart';
 
 class LogoutConfirmView extends StatelessWidget {
@@ -8,11 +9,18 @@ class LogoutConfirmView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red.shade50,
+      backgroundColor: const Color(0xFFFFEBEE),
       appBar: AppBar(
-        title: const Text('Konfirmasi Logout'),
-        backgroundColor: Colors.red,
+        title: Text(
+          'Konfirmasi Logout',
+          style: GoogleFonts.mochiyPopOne(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: const Color(0xFFE57373),
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Center(
         child: Padding(
@@ -20,28 +28,46 @@ class LogoutConfirmView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Yakin ingin logout?',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                style: GoogleFonts.mochiyPopOne(
+                  fontSize: 18,
+                  color: Colors.black87,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  AuthService.to.logout(); // ✅ Logout service
-                  Get.offAllNamed('/login'); // ✅ Arahkan ke Login
+                  AuthService.to.logout();
+                  Get.offAllNamed('/login');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: const Color(0xFFE57373),
                   foregroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                child: const Text('Ya, Logout'),
+                child: Text(
+                  'Ya, Logout',
+                  style: GoogleFonts.mochiyPopOne(fontSize: 16),
+                ),
               ),
+              const SizedBox(height: 12),
               TextButton(
                 onPressed: () => Get.back(),
-                child: const Text('Batal'),
+                child: Text(
+                  'Batal',
+                  style: GoogleFonts.mochiyPopOne(
+                    fontSize: 14,
+                    color: Colors.grey[700],
+                  ),
+                ),
               ),
             ],
           ),

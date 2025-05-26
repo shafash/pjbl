@@ -8,7 +8,6 @@ class DashboardController extends GetxController {
 
   final box = GetStorage();
 
-  // Tombol kecil di bawah search bar
   final List<Map<String, String>> smallButtons = [
     {'icon': 'assets/icons/game.png', 'label': 'Game', 'route': '/game-hub'},
     {'icon': 'assets/icons/materi.png', 'label': 'Materi', 'route': '/materi'},
@@ -16,14 +15,12 @@ class DashboardController extends GetxController {
     {'icon': 'assets/icons/tugas.png', 'label': 'Tugas', 'route': '/tugas'},
   ];
 
-  // Untuk hover effect, kalau dipakai di desktop/web
   final List<RxBool> hoverStates = List.generate(4, (_) => false.obs);
 
   void setHover(int index, bool value) {
     hoverStates[index].value = value;
   }
 
-  // Semua subjek lengkap
   final List<Map<String, String>> allSubjects = [
     {
       'icon': 'assets/math.png',
@@ -57,7 +54,6 @@ class DashboardController extends GetxController {
     },
   ];
 
-  // Subjek yang sering dikunjungi, update saat init dan saat record visit
   var frequentlyVisitedSubjects = <Map<String, String>>[].obs;
 
   @override
@@ -65,7 +61,6 @@ class DashboardController extends GetxController {
     super.onInit();
     loadMostVisitedSubjects();
 
-    // Misal userName bisa diset dari storage atau auth service
     userName.value = box.read('userName') ?? 'Nama Pengguna';
   }
 
@@ -78,7 +73,6 @@ class DashboardController extends GetxController {
       visitCounts[route] = count;
     }
 
-    // Urutkan berdasarkan jumlah kunjungan terbesar
     final sortedSubjects = allSubjects.toList()
       ..sort((a, b) {
         final countA = visitCounts[a['route']!] ?? 0;
@@ -95,7 +89,6 @@ class DashboardController extends GetxController {
     loadMostVisitedSubjects();
   }
 
-  // Fungsi navigasi ke halaman subject sesuai route-nya
   void goToSubject(String route) {
     Get.toNamed(route);
   }

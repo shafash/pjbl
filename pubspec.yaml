@@ -188,14 +188,42 @@ flutter:
     - assets/tata_surya/sun.png
     - assets/tata_surya/uranus.png
     - assets/tata_surya/venus.png
-    - assets/arah_mata_angin/barat_daya.png
-    - assets/arah_mata_angin/barat_laut.png
-    - assets/arah_mata_angin/barat.png
-    - assets/arah_mata_angin/selatan.png
-    - assets/arah_mata_angin/tenggara.png
-    - assets/arah_mata_angin/timur_laut.png
-    - assets/arah_mata_angin/timur.png
-    - assets/arah_mata_angin/utara.png
+    - assets/arah_mata_angin/barat_daya.jpg
+    - assets/arah_mata_angin/barat_laut.jpg
+    - assets/arah_mata_angin/barat.jpg
+    - assets/arah_mata_angin/selatan.jpg
+    - assets/arah_mata_angin/tenggara.jpg
+    - assets/arah_mata_angin/timur_laut.jpg
+    - assets/arah_mata_angin/timur.jpg
+    - assets/arah_mata_angin/utara.jpg
+    - assets/kompas.png
+    - assets/awan.png
+    - assets/pakaian_adat/adat_bali.png
+    - assets/pakaian_adat/baju_bodo.png
+    - assets/pakaian_adat/kebaya.png
+    - assets/pakaian_adat/ulos.png
+    - assets/honai.png
+    - assets/tongkonan.png
+    - assets/joglo.png
+    - assets/gadang.png
+    - assets/tifa.png
+    - assets/angklung.png
+    - assets/gamelan.png
+    - assets/sasando.png
+    - assets/kasada.jpg
+    - assets/ngaben.jpg
+    - assets/rambu_solo.jpg
+    - assets/sekaten.jpg
+    - assets/jaipong.jpg
+    - assets/piring.jpg
+    - assets/kecak.jpg
+    - assets/saman.jpg
+    - assets/monas.jpg
+    - assets/toba.jpg
+    - assets/lawangsewu.jpg
+    - assets/ulundanu.jpg
+    - assets/prambanan.jpg
+    - assets/borobudur.jpg
 
   fonts:
     - family: MochiyPopOne

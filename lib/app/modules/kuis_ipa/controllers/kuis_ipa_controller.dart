@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:confetti/confetti.dart';
 
@@ -8,6 +7,9 @@ class KuisIpaController extends GetxController {
   final correct = false.obs;
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
+
+  final totalCorrect = 0.obs;
+  final totalWrong = 0.obs;
 
   final List<Map<String, dynamic>> soalList = [
     {
@@ -53,7 +55,13 @@ class KuisIpaController extends GetxController {
     final correctAnswer = soalList[currentIndex.value]['answer']!;
     answered.value = true;
     correct.value = selected == correctAnswer;
-    if (correct.value) confettiController.play();
+
+    if (correct.value) {
+      totalCorrect.value++;
+      confettiController.play();
+    } else {
+      totalWrong.value++;
+    }
   }
 
   void nextQuestion() {

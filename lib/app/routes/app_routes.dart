@@ -85,6 +85,17 @@ abstract class Routes {
   static const GAME_MATEMATIKA = _Paths.GAME_MATEMATIKA;
   static const GAME_INGGRIS = _Paths.GAME_INGGRIS;
   static const SETTING = _Paths.SETTING;
+  static const PAKAIAN_ADAT = _Paths.PAKAIAN_ADAT;
+  static const RUMAH_ADAT = _Paths.RUMAH_ADAT;
+  static const ALAT_MUSIK_ADAT = _Paths.ALAT_MUSIK_ADAT;
+  static const UPACARA_ADAT = _Paths.UPACARA_ADAT;
+  static const TARI_TRADISIONAL = _Paths.TARI_TRADISIONAL;
+  static const FIND_LETTER_GAME = _Paths.FIND_LETTER_GAME;
+  static const FLAGS_GAME = _Paths.FLAGS_GAME;
+  static const MATCH_WORD_PICTURE = _Paths.MATCH_WORD_PICTURE;
+  static const UBAH_USERNAME = _Paths.UBAH_USERNAME;
+  static const TEBAK_PROVINSI_GAME = _Paths.TEBAK_PROVINSI_GAME;
+  static const TEBAK_TEMPAT = _Paths.TEBAK_TEMPAT;
 }
 
 abstract class _Paths {
@@ -171,4 +182,15 @@ abstract class _Paths {
   static const GAME_MATEMATIKA = '/game-matematika';
   static const GAME_INGGRIS = '/game-inggris';
   static const SETTING = '/setting';
+  static const PAKAIAN_ADAT = '/pakaian-adat';
+  static const RUMAH_ADAT = '/rumah-adat';
+  static const ALAT_MUSIK_ADAT = '/alat-musik-adat';
+  static const UPACARA_ADAT = '/upacara-adat';
+  static const TARI_TRADISIONAL = '/tari-tradisional';
+  static const FIND_LETTER_GAME = '/find-letter-game';
+  static const FLAGS_GAME = '/flags-game';
+  static const MATCH_WORD_PICTURE = '/match-word-picture';
+  static const UBAH_USERNAME = '/ubah-username';
+  static const TEBAK_PROVINSI_GAME = '/tebak-provinsi-game';
+  static const TEBAK_TEMPAT = '/tebak-tempat';
 }

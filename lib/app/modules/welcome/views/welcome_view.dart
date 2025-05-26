@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = const Color(0xFFFFF8E1); // samain sama splash
+    final Color bgColor = const Color(0xFFFFF8E1);
     final Color textColor = const Color(0xFF6D4C41);
 
     return Scaffold(
@@ -15,8 +15,8 @@ class WelcomeView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/splash.png', width: 160),
-            const SizedBox(height: 36),
+            Image.asset('assets/splash.png', width: 200),
+            const SizedBox(height: 50),
             Text(
               'Selamat Datang di Kelas Pintar!',
               textAlign: TextAlign.center,

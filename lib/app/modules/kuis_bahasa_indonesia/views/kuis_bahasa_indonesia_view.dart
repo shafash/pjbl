@@ -7,18 +7,55 @@ import '../controllers/kuis_bahasa_indonesia_controller.dart';
 class KuisBahasaIndonesiaView extends StatelessWidget {
   const KuisBahasaIndonesiaView({Key? key}) : super(key: key);
 
+  void _showResultDialog(BuildContext context, int benar, int total) {
+    final salah = total - benar;
+    final nilai = ((benar / total) * 100).toStringAsFixed(0);
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          '🎉 Selamat!',
+          style: TextStyle(fontFamily: 'MochiyPopOne'),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Nilai kamu: $nilai', style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 12),
+            Text('Benar: $benar', style: const TextStyle(color: Colors.green)),
+            Text('Salah: $salah', style: const TextStyle(color: Colors.red)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('Tutup'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final c = Get.find<KuisBahasaIndonesiaController>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kuis Bahasa Indonesia'),
+        title: const Text(
+          'Kuis Bahasa Indonesia',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.lightBlueAccent,
+        centerTitle: true,
       ),
       body: Stack(
         children: [
-          // Confetti
           Align(
             alignment: Alignment.topCenter,
             child: ConfettiWidget(
@@ -36,7 +73,6 @@ class KuisBahasaIndonesiaView extends StatelessWidget {
               ],
             ),
           ),
-          // Konten Kuis
           Obx(() {
             final q = c.soalList[c.currentIndex.value];
             final questionText = q['question'] as String;
@@ -89,14 +125,31 @@ class KuisBahasaIndonesiaView extends StatelessWidget {
                   if (c.answered.value)
                     Center(
                       child: ElevatedButton(
-                        onPressed: c.nextQuestion,
+                        onPressed: () {
+                          final isLast =
+                              c.currentIndex.value == c.soalList.length - 1;
+                          if (isLast) {
+                            c.confettiController.play();
+                            _showResultDialog(
+                              context,
+                              c.correctAnswers.value,
+                              c.soalList.length,
+                            );
+                          } else {
+                            c.nextQuestion();
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.lightBlueAccent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        child: const Text('Lanjut'),
+                        child: Text(
+                          c.currentIndex.value == c.soalList.length - 1
+                              ? 'Selesai'
+                              : 'Lanjut',
+                        ),
                       ),
                     ),
                 ],

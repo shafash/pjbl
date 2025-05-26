@@ -13,14 +13,14 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
-      Get.offNamed('/welcome'); // pindah ke WelcomeView setelah 3 detik
+      Get.offNamed('/welcome');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = const Color(0xFFFFF8E1); // pastel yellow
-    final Color textColor = const Color(0xFF6D4C41); // brownish text
+    final Color bgColor = const Color(0xFFFFF8E1);
+    final Color textColor = const Color(0xFF6D4C41);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -28,8 +28,8 @@ class _SplashViewState extends State<SplashView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/splash.png', width: 140),
-            const SizedBox(height: 20),
+            Image.asset('assets/splash.png', width: 200),
+            const SizedBox(height: 50),
             Text(
               'Kelas Pintar',
               style: GoogleFonts.mochiyPopOne(

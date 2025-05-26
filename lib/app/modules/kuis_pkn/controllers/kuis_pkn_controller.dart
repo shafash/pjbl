@@ -12,7 +12,7 @@ class KuisPknController extends GetxController {
     {
       'question': 'Pancasila terdiri dari … sila.',
       'options': ['3', '4', '5', '6'],
-      'answer': '5'
+      'answer': '5',
     },
     {
       'question': 'Sila pertama Pancasila adalah …',
@@ -22,17 +22,17 @@ class KuisPknController extends GetxController {
         'Persatuan Indonesia',
         'Keadilan sosial bagi seluruh rakyat Indonesia'
       ],
-      'answer': 'Ketuhanan Yang Maha Esa'
+      'answer': 'Ketuhanan Yang Maha Esa',
     },
     {
       'question': 'Lambang sila ke-3 adalah …',
       'options': ['Bintang', 'Rantai', 'Pohon Beringin', 'Padi dan Kapas'],
-      'answer': 'Pohon Beringin'
+      'answer': 'Pohon Beringin',
     },
     {
       'question': 'Warga negara harus … hukum yang berlaku.',
       'options': ['Menghindari', 'Melanggar', 'Mentaati', 'Menolak'],
-      'answer': 'Mentaati'
+      'answer': 'Mentaati',
     },
     {
       'question': 'Contoh sikap gotong royong adalah …',
@@ -42,16 +42,18 @@ class KuisPknController extends GetxController {
         'Bertengkar dengan teman',
         'Menolak tugas kelompok'
       ],
-      'answer': 'Bekerja sama membersihkan lingkungan'
+      'answer': 'Bekerja sama membersihkan lingkungan',
     },
   ];
 
-  void answerQuestion(String selected) {
+  void answerQuestion(String selectedOption) {
     if (answered.value) return;
     final correctAnswer = soalList[currentIndex.value]['answer']!;
     answered.value = true;
-    correct.value = selected == correctAnswer;
-    if (correct.value) confettiController.play();
+    correct.value = selectedOption == correctAnswer;
+    if (correct.value) {
+      confettiController.play();
+    }
   }
 
   void nextQuestion() {

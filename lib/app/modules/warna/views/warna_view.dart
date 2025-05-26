@@ -31,7 +31,16 @@ class WarnaView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mengenal Warna'),
+        title: Text(
+          'Mengenal Warna',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.pink.shade300,
+        foregroundColor: Colors.white,
       ),
       body: Container(
         padding: const EdgeInsets.all(16),

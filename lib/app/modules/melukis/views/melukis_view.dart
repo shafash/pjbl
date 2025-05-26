@@ -8,7 +8,16 @@ class MelukisView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Melukis Bebas'),
+        title: Text(
+          'Melukis Bebas',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.pink.shade300,
+        foregroundColor: Colors.white,
       ),
       body: Container(
         padding: const EdgeInsets.all(16),

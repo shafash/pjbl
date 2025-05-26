@@ -7,6 +7,8 @@ import '../modules/SubmateriSeni/bindings/submateri_seni_binding.dart';
 import '../modules/SubmateriSeni/views/submateri_seni_view.dart';
 import '../modules/addition/bindings/addition_binding.dart';
 import '../modules/addition/views/addition_view.dart';
+import '../modules/alat_musik_adat/bindings/alat_musik_adat_binding.dart';
+import '../modules/alat_musik_adat/views/alat_musik_adat_view.dart';
 import '../modules/animals/bindings/animals_binding.dart';
 import '../modules/animals/views/animals_view.dart';
 import '../modules/bentuk/bindings/bentuk_binding.dart';
@@ -27,8 +29,12 @@ import '../modules/english-alphabet/bindings/english_alphabet_binding.dart';
 import '../modules/english-alphabet/views/english_alphabet_view.dart';
 import '../modules/english-submateri/bindings/english_submateri_binding.dart';
 import '../modules/english-submateri/views/english_submateri_view.dart';
+import '../modules/find_letter_game/bindings/find_letter_game_binding.dart';
+import '../modules/find_letter_game/views/find_letter_game_view.dart';
 import '../modules/flags/bindings/flags_binding.dart';
 import '../modules/flags/views/flags_view.dart';
+import '../modules/flags_game/bindings/flags_game_binding.dart';
+import '../modules/flags_game/views/flags_game_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
 import '../modules/fruits/bindings/fruits_binding.dart';
@@ -91,6 +97,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/logout_confirm/bindings/logout_confirm_binding.dart';
 import '../modules/logout_confirm/views/logout_confirm_view.dart';
+import '../modules/match_word_picture/bindings/match_word_picture_binding.dart';
+import '../modules/match_word_picture/views/match_word_picture_view.dart';
 import '../modules/materi/views/materi_view.dart';
 import '../modules/math-submateri/bindings/math_submateri_binding.dart';
 import '../modules/math-submateri/views/math_submateri_view.dart';
@@ -106,6 +114,8 @@ import '../modules/multiplication/bindings/multiplication_binding.dart';
 import '../modules/multiplication/views/multiplication_view.dart';
 import '../modules/numbers/bindings/numbers_binding.dart';
 import '../modules/numbers/views/numbers_view.dart';
+import '../modules/pakaian_adat/bindings/pakaian_adat_binding.dart';
+import '../modules/pakaian_adat/views/pakaian_adat_view.dart';
 import '../modules/patterns/bindings/pattern_binding.dart';
 import '../modules/patterns/views/pattern_view.dart';
 import '../modules/pekerjaan_sekitar/bindings/pekerjaan_sekitar_binding.dart';
@@ -118,6 +128,8 @@ import '../modules/puisi_pantun/bindings/puisi_pantun_binding.dart';
 import '../modules/puisi_pantun/views/puisi_pantun_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/rumah_adat/bindings/rumah_adat_binding.dart';
+import '../modules/rumah_adat/views/rumah_adat_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/shape2/bindings/shape2_binding.dart';
@@ -134,6 +146,10 @@ import '../modules/subtraction/bindings/subtraction_binding.dart';
 import '../modules/subtraction/views/subtraction_view.dart';
 import '../modules/tanggung_jawab_sekolah/bindings/tanggung_jawab_sekolah_binding.dart';
 import '../modules/tanggung_jawab_sekolah/views/tanggung_jawab_sekolah_view.dart';
+import '../modules/tari_tradisional/bindings/tari_tradisional_binding.dart';
+import '../modules/tari_tradisional/views/tari_tradisional_view.dart';
+import '../modules/tebak_tempat/bindings/tebak_tempat_binding.dart';
+import '../modules/tebak_tempat/views/tebak_tempat_view.dart';
 import '../modules/teks_deskriptif/bindings/teks_deskriptif_binding.dart';
 import '../modules/teks_deskriptif/views/teks_deskriptif_view.dart';
 import '../modules/teks_naratif/bindings/teks_naratif_binding.dart';
@@ -144,6 +160,10 @@ import '../modules/tugas_detail/bindings/tugas_detail_binding.dart';
 import '../modules/tugas_detail/views/tugas_detail_view.dart';
 import '../modules/ubah_kata_sandi/bindings/ubah_kata_sandi_binding.dart';
 import '../modules/ubah_kata_sandi/views/ubah_kata_sandi_view.dart';
+import '../modules/ubah_username/bindings/ubah_username_binding.dart';
+import '../modules/ubah_username/views/ubah_username_view.dart';
+import '../modules/upacara_adat/bindings/upacara_adat_binding.dart';
+import '../modules/upacara_adat/views/upacara_adat_view.dart';
 import '../modules/vegetables/bindings/vegetables_binding.dart';
 import '../modules/vegetables/views/vegetables_view.dart';
 import '../modules/warna/bindings/warna_binding.dart';
@@ -216,7 +236,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.UBAH_KATA_SANDI,
-      page: () => UbahKataSandiView(),
+      page: () => UbahPasswordView(),
       binding: UbahKataSandiBinding(),
     ),
     GetPage(
@@ -526,13 +546,63 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.GAME_INGGRIS,
-      page: () => const GameInggrisView(),
+      page: () => const EnglishGamesView(),
       binding: GameInggrisBinding(),
     ),
     GetPage(
       name: _Paths.SETTING,
-      page: () => const SettingView(),
+      page: () => const SettingsView(),
       binding: SettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAKAIAN_ADAT,
+      page: () => PakaianAdatView(),
+      binding: PakaianAdatBinding(),
+    ),
+    GetPage(
+      name: _Paths.RUMAH_ADAT,
+      page: () => RumahAdatView(),
+      binding: RumahAdatBinding(),
+    ),
+    GetPage(
+      name: _Paths.ALAT_MUSIK_ADAT,
+      page: () => AlatMusikAdatView(),
+      binding: AlatMusikAdatBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPACARA_ADAT,
+      page: () => UpacaraAdatView(),
+      binding: UpacaraAdatBinding(),
+    ),
+    GetPage(
+      name: _Paths.TARI_TRADISIONAL,
+      page: () => TariTradisionalView(),
+      binding: TariTradisionalBinding(),
+    ),
+    GetPage(
+      name: _Paths.FIND_LETTER_GAME,
+      page: () => const FindMissingLetterView(),
+      binding: FindMissingLetterBinding(),
+    ),
+    GetPage(
+      name: _Paths.FLAGS_GAME,
+      page: () => const FlagsGameView(),
+      binding: FlagsGameBinding(),
+    ),
+    GetPage(
+      name: _Paths.MATCH_WORD_PICTURE,
+      page: () => const MatchWordPictureView(),
+      binding: MatchWordPictureBinding(),
+    ),
+    GetPage(
+      name: _Paths.UBAH_USERNAME,
+      page: () => UbahUsernameView(),
+      binding: UbahUsernameBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEBAK_TEMPAT,
+      page: () => TebakTempatView(),
+      binding: TebakTempatBinding(),
     ),
   ];
 }

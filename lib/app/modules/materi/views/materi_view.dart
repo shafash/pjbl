@@ -10,7 +10,7 @@ class MateriView extends StatelessWidget {
   Widget build(BuildContext context) {
     final materiList = [
       {
-        'title': 'English',
+        'title': 'Bahasa Inggris',
         'icon': 'assets/english.png',
         'route': Routes.ENGLISH_SUBMATERI,
       },

@@ -6,6 +6,7 @@ class KuisSeniController extends GetxController {
   final selectedAnswer = RxnString();
   final score = 0.obs;
   final isFinished = false.obs;
+  final answered = false.obs; // tambah ini untuk cek sudah jawab atau belum
 
   @override
   void onInit() {
@@ -38,14 +39,22 @@ class KuisSeniController extends GetxController {
     ]);
   }
 
-  void nextQuestion() {
-    if (selectedAnswer.value == soalList[currentIndex.value]['answer']) {
+  void answerQuestion(String answer) {
+    if (answered.value) return; // kalau sudah jawab, jangan ganti lagi
+    selectedAnswer.value = answer;
+    answered.value = true;
+
+    // cek jawaban benar/tidak
+    if (answer == soalList[currentIndex.value]['answer']) {
       score.value++;
     }
+  }
 
+  void nextQuestion() {
     if (currentIndex.value < soalList.length - 1) {
       currentIndex.value++;
       selectedAnswer.value = null;
+      answered.value = false;
     } else {
       isFinished.value = true;
     }
@@ -56,5 +65,6 @@ class KuisSeniController extends GetxController {
     selectedAnswer.value = null;
     score.value = 0;
     isFinished.value = false;
+    answered.value = false;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:confetti/confetti.dart';
 import 'dart:math';
+import 'package:google_fonts/google_fonts.dart';
 import '../controllers/kuis_bahasa_inggris_controller.dart';
 
 class KuisInggrisView extends StatelessWidget {
@@ -13,7 +14,10 @@ class KuisInggrisView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('English Quiz'),
+        title: Text(
+          'English Quiz',
+          style: GoogleFonts.mochiyPopOne(fontSize: 20),
+        ),
         backgroundColor: Colors.blue,
       ),
       body: Stack(
@@ -62,6 +66,7 @@ class KuisInggrisView extends StatelessWidget {
                         opt != correctAnswer &&
                         opt == opt &&
                         opt != correctAnswer;
+
                     return GestureDetector(
                       onTap: () => c.answerQuestion(opt),
                       child: Container(
@@ -86,20 +91,61 @@ class KuisInggrisView extends StatelessWidget {
                   if (c.answered.value)
                     Center(
                       child: ElevatedButton(
-                        onPressed: c.nextQuestion,
+                        onPressed: () {
+                          if (c.currentIndex.value == c.soalList.length - 1) {
+                            showResultDialog(
+                              context,
+                              c.totalCorrect.value,
+                              c.totalWrong.value,
+                            );
+                          } else {
+                            c.nextQuestion();
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        child: const Text('Next'),
+                        child: Text(
+                          c.currentIndex.value == c.soalList.length - 1
+                              ? 'Selesai'
+                              : 'Next',
+                        ),
                       ),
                     ),
                 ],
               ),
             );
           }),
+        ],
+      ),
+    );
+  }
+
+  void showResultDialog(BuildContext context, int correct, int wrong) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Hasil Kuis'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Jawaban Benar: $correct'),
+            Text('Jawaban Salah: $wrong'),
+            const SizedBox(height: 16),
+            const Text('🎉 Selamat! Kamu telah menyelesaikan kuis.'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Get.back();
+            },
+            child: const Text('Tutup'),
+          ),
         ],
       ),
     );

@@ -4,6 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 class LingkunganSekitarView extends StatelessWidget {
   const LingkunganSekitarView({super.key});
 
+  // Menentukan warna teks yang kontras dengan warna latar belakang
+  Color getContrastingTextColor(Color backgroundColor) {
+    return ThemeData.estimateBrightnessForColor(backgroundColor) ==
+            Brightness.dark
+        ? Colors.white
+        : Colors.black;
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> items = [
@@ -52,6 +60,8 @@ class LingkunganSekitarView extends StatelessWidget {
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
+          final Color textColor = getContrastingTextColor(item['color']);
+
           return Card(
             color: item['color'],
             shape: RoundedRectangleBorder(
@@ -60,19 +70,25 @@ class LingkunganSekitarView extends StatelessWidget {
             elevation: 4,
             margin: const EdgeInsets.only(bottom: 20),
             child: ListTile(
-              leading: Icon(item['icon'], size: 40, color: Colors.white),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              leading: Icon(
+                item['icon'],
+                size: 40,
+                color: textColor,
+              ),
               title: Text(
                 item['title'],
                 style: GoogleFonts.mochiyPopOne(
                   fontSize: 16,
-                  color: Colors.white,
+                  color: textColor,
                 ),
               ),
               subtitle: Text(
                 item['description'],
                 style: GoogleFonts.mochiyPopOne(
                   fontSize: 12,
-                  color: Colors.white.withOpacity(0.9),
+                  color: textColor.withOpacity(0.8),
                 ),
               ),
             ),

@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:confetti/confetti.dart';
 
-class KuisMathController extends GetxController {
+class KuisMatematikaController extends GetxController {
   final currentIndex = 0.obs;
   final answered = false.obs;
   final correct = false.obs;
+  final selectedAnswer =
+      ''.obs; // Tambahkan ini untuk menyimpan jawaban yang dipilih
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
 
@@ -44,6 +46,7 @@ class KuisMathController extends GetxController {
   void answerQuestion(String selected) {
     if (answered.value) return;
     final correctAnswer = soalList[currentIndex.value]['answer']!;
+    selectedAnswer.value = selected; // Simpan jawaban yang dipilih
     answered.value = true;
     correct.value = selected == correctAnswer;
     if (correct.value) confettiController.play();
@@ -54,6 +57,7 @@ class KuisMathController extends GetxController {
       currentIndex.value++;
       answered.value = false;
       correct.value = false;
+      selectedAnswer.value = '';
     }
   }
 

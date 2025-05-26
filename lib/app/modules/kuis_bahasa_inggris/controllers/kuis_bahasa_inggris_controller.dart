@@ -6,6 +6,10 @@ class KuisInggrisController extends GetxController {
   final currentIndex = 0.obs;
   final answered = false.obs;
   final correct = false.obs;
+
+  final totalCorrect = 0.obs;
+  final totalWrong = 0.obs;
+
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
 
@@ -47,7 +51,13 @@ class KuisInggrisController extends GetxController {
     final correctAnswer = soalList[currentIndex.value]['answer']!;
     answered.value = true;
     correct.value = selected == correctAnswer;
-    if (correct.value) confettiController.play();
+
+    if (correct.value) {
+      totalCorrect.value++;
+      confettiController.play();
+    } else {
+      totalWrong.value++;
+    }
   }
 
   void nextQuestion() {

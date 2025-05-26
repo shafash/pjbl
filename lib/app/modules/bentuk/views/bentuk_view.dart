@@ -41,7 +41,16 @@ class BentukView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menggambar Bentuk'),
+        title: Text(
+          'Menggambar bentuk',
+          style: TextStyle(
+            fontFamily: 'MochiyPopOne',
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.pink.shade300,
+        foregroundColor: Colors.white,
       ),
       body: Container(
         padding: const EdgeInsets.all(16),

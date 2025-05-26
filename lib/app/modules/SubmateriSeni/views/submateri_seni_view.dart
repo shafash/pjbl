@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart'; // Pastikan sudah import
 
 class SubmateriSeniView extends StatelessWidget {
   const SubmateriSeniView({super.key});
@@ -17,7 +18,16 @@ class SubmateriSeniView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Submateri Seni'),
+        title: Text(
+          'Submateri Seni',
+          style: GoogleFonts.mochiyPopOne(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.pink.shade300,
+        foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Container(
         padding: const EdgeInsets.all(16),

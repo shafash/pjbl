@@ -60,8 +60,7 @@ class KuisIpsView extends StatelessWidget {
                     final isCorrect = c.answered.value && opt == correctAnswer;
                     final isWrong = c.answered.value &&
                         opt != correctAnswer &&
-                        opt == opt &&
-                        opt != correctAnswer;
+                        opt == c.selectedAnswer.value;
                     return GestureDetector(
                       onTap: () => c.answerQuestion(opt),
                       child: Container(
