@@ -12,10 +12,16 @@ class FlagsGameView extends GetView<FlagsGameController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tebak Bendera',
-            style: GoogleFonts.mochiyPopOne(fontSize: 20)),
+        title: Text(
+          'Tebak Bendera',
+          style: GoogleFonts.mochiyPopOne(
+            fontSize: 20,
+            color: Colors.black87,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFFB3C7D6),
+        iconTheme: const IconThemeData(color: Colors.black87),
       ),
       backgroundColor: const Color(0xFFF8F4F1),
       body: Obx(() {
@@ -24,17 +30,33 @@ class FlagsGameView extends GetView<FlagsGameController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('🎉 Yeay!',
-                    style: GoogleFonts.mochiyPopOne(
-                        fontSize: 28, fontWeight: FontWeight.bold)),
+                Text(
+                  '🎉 Yeay!',
+                  style: GoogleFonts.mochiyPopOne(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
                 const SizedBox(height: 20),
-                Text('Skor: ${c.score.value} / ${c.flags.length}',
-                    style: GoogleFonts.mochiyPopOne(fontSize: 20)),
+                Text(
+                  'Skor: ${c.score.value} / ${c.flags.length}',
+                  style: GoogleFonts.mochiyPopOne(
+                    fontSize: 20,
+                    color: Colors.black87,
+                  ),
+                ),
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: c.resetGame,
-                  child: Text('Main Lagi',
-                      style: GoogleFonts.mochiyPopOne(fontSize: 18)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey.shade300,
+                    foregroundColor: Colors.black87,
+                  ),
+                  child: Text(
+                    'Main Lagi',
+                    style: GoogleFonts.mochiyPopOne(fontSize: 18),
+                  ),
                 )
               ],
             ),
@@ -51,8 +73,13 @@ class FlagsGameView extends GetView<FlagsGameController> {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              Text('Seret bendera ke nama negaranya!',
-                  style: GoogleFonts.mochiyPopOne(fontSize: 18)),
+              Text(
+                'Seret bendera ke nama negaranya!',
+                style: GoogleFonts.mochiyPopOne(
+                  fontSize: 18,
+                  color: Colors.black87, // font warna kontras
+                ),
+              ),
               const SizedBox(height: 30),
 
               // DRAGGABLE EMOJI FLAG
@@ -60,13 +87,22 @@ class FlagsGameView extends GetView<FlagsGameController> {
                 data: correctCountry,
                 feedback: Material(
                   color: Colors.transparent,
-                  child: Text(emoji, style: const TextStyle(fontSize: 80)),
+                  child: Text(
+                    emoji,
+                    style: const TextStyle(fontSize: 80),
+                  ),
                 ),
                 childWhenDragging: Opacity(
                   opacity: 0.3,
-                  child: Text(emoji, style: const TextStyle(fontSize: 80)),
+                  child: Text(
+                    emoji,
+                    style: const TextStyle(fontSize: 80),
+                  ),
                 ),
-                child: Text(emoji, style: const TextStyle(fontSize: 80)),
+                child: Text(
+                  emoji,
+                  style: const TextStyle(fontSize: 80),
+                ),
               ),
 
               const SizedBox(height: 40),
@@ -102,7 +138,10 @@ class FlagsGameView extends GetView<FlagsGameController> {
                         ),
                         child: Text(
                           country,
-                          style: GoogleFonts.mochiyPopOne(fontSize: 16),
+                          style: GoogleFonts.mochiyPopOne(
+                            fontSize: 16,
+                            color: Colors.black87,
+                          ),
                         ),
                       );
                     },

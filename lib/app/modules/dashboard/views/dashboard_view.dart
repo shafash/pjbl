@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../controllers/dashboard_controller.dart';
-import 'package:kelas_pintar/app/routes/app_pages.dart'; // pastikan ini import route-nya
+import 'package:kelas_pintar/app/routes/app_pages.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -10,20 +10,20 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFBF3), // krem lembut
+      backgroundColor: const Color(0xFFFFFBF3),
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFBF3),
         elevation: 0,
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(Icons.person, color: Colors.brown),
-          onPressed: () => Get.toNamed(Routes.PROFIL), // route profil
+          onPressed: () => Get.toNamed(Routes.PROFIL),
           tooltip: 'Profil',
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings, color: Colors.brown),
-            onPressed: () => Get.toNamed(Routes.SETTING), // route setting
+            onPressed: () => Get.toNamed(Routes.SETTING),
             tooltip: 'Setting',
           ),
         ],
@@ -42,8 +42,6 @@ class DashboardView extends GetView<DashboardController> {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Search Bar
               TextField(
                 onChanged: (value) => controller.searchQuery.value = value,
                 decoration: InputDecoration(
@@ -59,8 +57,6 @@ class DashboardView extends GetView<DashboardController> {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Tombol kecil
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children:
@@ -107,14 +103,12 @@ class DashboardView extends GetView<DashboardController> {
                 }),
               ),
               const SizedBox(height: 20),
-
-              // Subject grid
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  children: controller.frequentlyVisitedSubjects.map((subject) {
+                  children: controller.filteredSubjects.map((subject) {
                     return GestureDetector(
                       onTap: () {
                         controller.recordVisit(subject['route']!);

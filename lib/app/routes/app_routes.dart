@@ -96,6 +96,7 @@ abstract class Routes {
   static const UBAH_USERNAME = _Paths.UBAH_USERNAME;
   static const TEBAK_PROVINSI_GAME = _Paths.TEBAK_PROVINSI_GAME;
   static const TEBAK_TEMPAT = _Paths.TEBAK_TEMPAT;
+  static const ENGLISH_MATCHING_GAME = _Paths.ENGLISH_MATCHING_GAME;
 }
 
 abstract class _Paths {
@@ -193,4 +194,5 @@ abstract class _Paths {
   static const UBAH_USERNAME = '/ubah-username';
   static const TEBAK_PROVINSI_GAME = '/tebak-provinsi-game';
   static const TEBAK_TEMPAT = '/tebak-tempat';
+  static const ENGLISH_MATCHING_GAME = '/english-matching-game';
 }

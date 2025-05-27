@@ -29,6 +29,8 @@ import '../modules/english-alphabet/bindings/english_alphabet_binding.dart';
 import '../modules/english-alphabet/views/english_alphabet_view.dart';
 import '../modules/english-submateri/bindings/english_submateri_binding.dart';
 import '../modules/english-submateri/views/english_submateri_view.dart';
+import '../modules/english_matching_game/bindings/english_matching_game_binding.dart';
+import '../modules/english_matching_game/views/english_matching_game_view.dart';
 import '../modules/find_letter_game/bindings/find_letter_game_binding.dart';
 import '../modules/find_letter_game/views/find_letter_game_view.dart';
 import '../modules/flags/bindings/flags_binding.dart';
@@ -603,6 +605,11 @@ class AppPages {
       name: _Paths.TEBAK_TEMPAT,
       page: () => TebakTempatView(),
       binding: TebakTempatBinding(),
+    ),
+    GetPage(
+      name: _Paths.ENGLISH_MATCHING_GAME,
+      page: () => EnglishMatchingGameView(),
+      binding: EnglishMatchingGameBinding(),
     ),
   ];
 }

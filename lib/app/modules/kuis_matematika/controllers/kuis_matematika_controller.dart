@@ -5,8 +5,7 @@ class KuisMatematikaController extends GetxController {
   final currentIndex = 0.obs;
   final answered = false.obs;
   final correct = false.obs;
-  final selectedAnswer =
-      ''.obs; // Tambahkan ini untuk menyimpan jawaban yang dipilih
+  final selectedAnswer = ''.obs;
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
 

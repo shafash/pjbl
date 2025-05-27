@@ -71,11 +71,26 @@ class KuisMatematikaView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ...options.map((option) {
-                    final isCorrect =
+                    final bool isCorrect =
                         controller.answered.value && option == correctAnswer;
-                    final isWrong = controller.answered.value &&
+                    final bool isWrong = controller.answered.value &&
                         option != correctAnswer &&
                         option == controller.selectedAnswer.value;
+
+                    // Tentukan warna background sesuai status
+                    final Color backgroundColor = controller.answered.value
+                        ? (isCorrect
+                            ? Colors.green.shade600
+                            : isWrong
+                                ? Colors.red.shade400
+                                : Colors.grey.shade200)
+                        : Colors.grey.shade200;
+
+                    // Tentukan warna teks supaya kontras
+                    final Color textColor = controller.answered.value
+                        ? (isCorrect || isWrong ? Colors.white : Colors.black)
+                        : Colors.black;
+
                     return GestureDetector(
                       onTap: () => controller.answerQuestion(option),
                       child: Container(
@@ -83,17 +98,17 @@ class KuisMatematikaView extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 6),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: controller.answered.value
-                              ? (isCorrect
-                                  ? Colors.green
-                                  : isWrong
-                                      ? Colors.red.shade200
-                                      : Colors.grey.shade200)
-                              : Colors.grey.shade200,
+                          color: backgroundColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child:
-                            Text(option, style: const TextStyle(fontSize: 16)),
+                        child: Text(
+                          option,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: textColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     );
                   }).toList(),

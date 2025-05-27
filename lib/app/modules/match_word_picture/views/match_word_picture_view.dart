@@ -111,7 +111,18 @@ class MatchWordPictureView extends GetView<MatchWordPictureController> {
 
                   return GestureDetector(
                     onTap: selected == null
-                        ? () => c.selected.value = option
+                        ? () {
+                            c.selected.value = option;
+                            c.checkAnswer(option);
+                            Future.delayed(const Duration(seconds: 1), () {
+                              if (c.currentIndex.value == c.data.length - 1) {
+                                c.isFinished.value = true;
+                              } else {
+                                c.nextQuestion();
+                              }
+                              c.selected.value = null; // reset selected
+                            });
+                          }
                         : null,
                     child: Container(
                       width: 130,
@@ -150,34 +161,7 @@ class MatchWordPictureView extends GetView<MatchWordPictureController> {
                 ),
 
               const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (c.selected.value == null) {
-                      Get.snackbar('Warning', 'Please select an answer first');
-                      return;
-                    }
-                    c.checkAnswer(c.selected.value!);
-                    Future.delayed(const Duration(seconds: 1), () {
-                      if (c.currentIndex.value == c.data.length - 1) {
-                        c.isFinished.value = true;
-                      } else {
-                        c.nextQuestion();
-                      }
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFC7CEEA),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  ),
-                  child: Text('Submit',
-                      style: GoogleFonts.mochiyPopOne(
-                          fontSize: 20, fontWeight: FontWeight.w600)),
-                ),
-              ),
+              // Tombol Submit dihapus karena tidak diperlukan lagi
             ],
           ),
         );

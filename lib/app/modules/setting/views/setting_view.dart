@@ -12,32 +12,37 @@ class SettingsView extends StatelessWidget {
     final ThemeController themeController = Get.find<ThemeController>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF0F5),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFFF0F5),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: const Text(
           'Settings ⚙️',
           style: TextStyle(
             fontFamily: 'MochiyPopOne',
-            color: Colors.black87,
             fontSize: 24,
           ),
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black87),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          Obx(() => _buildSettingCard(
-                icon: Icons.color_lens,
-                title: "Theme Mode",
-                subtitle: themeController.isDarkMode.value
-                    ? "Dark Mode 🌙"
-                    : "Light Mode ☀️",
-                onTap: () => themeController.toggleTheme(),
-              )),
+          _buildSettingCard(
+            icon: Icons.color_lens,
+            title: "Theme Mode",
+            subtitle:
+                themeController.isDarkMode ? "Dark Mode 🌙" : "Light Mode ☀️",
+            onTap: () {
+              Get.snackbar(
+                "Coming Soon!",
+                "Fitur ganti tema akan tersedia nanti.",
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.white,
+                colorText: Colors.deepPurple,
+                duration: const Duration(seconds: 2),
+              );
+            },
+          ),
           const SizedBox(height: 20),
           _buildSettingCard(
             icon: Icons.volume_up,

@@ -56,12 +56,18 @@ class DashboardController extends GetxController {
 
   var frequentlyVisitedSubjects = <Map<String, String>>[].obs;
 
+  // Ini list yang akan menampilkan hasil filter search
+  var filteredSubjects = <Map<String, String>>[].obs;
+
   @override
   void onInit() {
     super.onInit();
+    userName.value = box.read('userName') ?? 'Nama Pengguna';
+
     loadMostVisitedSubjects();
 
-    userName.value = box.read('userName') ?? 'Nama Pengguna';
+    // Setiap searchQuery berubah, jalankan filterSubjects()
+    ever(searchQuery, (_) => filterSubjects());
   }
 
   void loadMostVisitedSubjects() {
@@ -81,6 +87,22 @@ class DashboardController extends GetxController {
       });
 
     frequentlyVisitedSubjects.assignAll(sortedSubjects.take(6));
+
+    // Setelah load data, langsung filter berdasarkan searchQuery sekarang
+    filterSubjects();
+  }
+
+  void filterSubjects() {
+    final query = searchQuery.value.toLowerCase().trim();
+
+    if (query.isEmpty) {
+      filteredSubjects.assignAll(frequentlyVisitedSubjects);
+    } else {
+      filteredSubjects.assignAll(frequentlyVisitedSubjects.where((subject) {
+        final name = subject['name']!.toLowerCase();
+        return name.contains(query);
+      }).toList());
+    }
   }
 
   void recordVisit(String route) {

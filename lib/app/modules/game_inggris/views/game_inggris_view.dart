@@ -15,18 +15,18 @@ class EnglishGamesView extends StatelessWidget {
         'icon': Icons.text_fields,
       },
       {
-        'title': 'Flags Game',
-        'description': 'Cocokkan bendera dengan negara',
-        'route': '/flags-game',
-        'color': const Color(0xFFE0F7FA),
-        'icon': Icons.flag,
-      },
-      {
         'title': 'Match Word with Picture',
         'description': 'Cocokkan kata dengan gambarnya',
         'route': '/match-word-picture',
         'color': const Color(0xFFD1C4E9),
         'icon': Icons.image_search,
+      },
+      {
+        'title': 'Matching Cards Game',
+        'description': 'Cocokkan kartu bergambar yang sama!',
+        'route': '/english-matching-game',
+        'color': const Color(0xFFB2EBF2),
+        'icon': Icons.memory,
       },
     ];
 

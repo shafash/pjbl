@@ -83,7 +83,8 @@ class KuisDashboardView extends StatelessWidget {
                       onTap: () => Get.toNamed(mapel['route']),
                       child: Container(
                         width: isSmallDevice ? width / 2 - 24 : 160,
-                        padding: const EdgeInsets.all(20),
+                        height: 180, // Tetapkan tinggi agar seragam
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: mapel['color'],
                           borderRadius: BorderRadius.circular(20),
@@ -96,29 +97,31 @@ class KuisDashboardView extends StatelessWidget {
                           ],
                         ),
                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               mapel['emoji'],
                               style: const TextStyle(fontSize: 48),
                             ),
-                            const SizedBox(height: 15),
+                            const SizedBox(height: 12),
                             Text(
                               mapel['title'],
                               textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontFamily: 'MochiyPopOne',
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black87,
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 6),
                             Text(
                               '${mapel['jumlahKuis']} Kuis',
                               style: const TextStyle(
                                 fontFamily: 'MochiyPopOne',
-                                fontSize: 13,
+                                fontSize: 12,
                                 color: Colors.black54,
                               ),
                             ),

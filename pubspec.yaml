@@ -227,6 +227,8 @@ flutter:
     - assets/prambanan.jpg
     - assets/borobudur.jpg
     - assets/audio/just-relax-11157.mp3
+    - assets/fish.png
+    - assets/egg.png
 
   fonts:
     - family: MochiyPopOne

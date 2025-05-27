@@ -11,6 +11,7 @@ class KuisInggrisView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.find<KuisInggrisController>();
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,6 +69,28 @@ class KuisInggrisView extends StatelessWidget {
                         opt == opt &&
                         opt != correctAnswer;
 
+                    final backgroundColor = c.answered.value
+                        ? (isCorrect
+                            ? (isDarkMode
+                                ? Colors.green.shade700
+                                : Colors.green.shade400)
+                            : isWrong
+                                ? (isDarkMode
+                                    ? Colors.red.shade700
+                                    : Colors.red.shade200)
+                                : (isDarkMode
+                                    ? Colors.grey.shade800
+                                    : Colors.grey.shade300))
+                        : (isDarkMode
+                            ? Colors.grey.shade900
+                            : Colors.grey.shade200);
+
+                    final textColor = c.answered.value
+                        ? (isCorrect || isWrong
+                            ? Colors.white
+                            : (isDarkMode ? Colors.white70 : Colors.black87))
+                        : (isDarkMode ? Colors.white70 : Colors.black87);
+
                     return GestureDetector(
                       onTap: () => c.answerQuestion(opt),
                       child: Container(
@@ -75,16 +98,13 @@ class KuisInggrisView extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 6),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: c.answered.value
-                              ? (isCorrect
-                                  ? Colors.green
-                                  : isWrong
-                                      ? Colors.red.shade200
-                                      : Colors.grey.shade200)
-                              : Colors.grey.shade200,
+                          color: backgroundColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text(opt, style: const TextStyle(fontSize: 16)),
+                        child: Text(
+                          opt,
+                          style: TextStyle(fontSize: 16, color: textColor),
+                        ),
                       ),
                     );
                   }).toList(),

@@ -6,7 +6,8 @@ class KuisBahasaIndonesiaController extends GetxController {
   final currentIndex = 0.obs;
   final answered = false.obs;
   final correct = false.obs;
-  final correctAnswers = 0.obs; // ✅ Tambahkan ini
+  final correctAnswers = 0.obs;
+  final selectedAnswer = RxnString();
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
 
@@ -46,6 +47,7 @@ class KuisBahasaIndonesiaController extends GetxController {
   void answerQuestion(String selected) {
     if (answered.value) return;
     final correctAnswer = soalList[currentIndex.value]['answer']!;
+    selectedAnswer.value = selected; // <== ini tambahan
     answered.value = true;
     correct.value = selected == correctAnswer;
     if (correct.value) {
@@ -59,6 +61,7 @@ class KuisBahasaIndonesiaController extends GetxController {
       currentIndex.value++;
       answered.value = false;
       correct.value = false;
+      selectedAnswer.value = null; // reset jawaban terpilih
     }
   }
 

@@ -21,7 +21,8 @@ class TebakTempatView extends StatelessWidget {
               controller.sudahSelesai.value
                   ? 'Hasil'
                   : 'Soal ${controller.indexSoal.value + 1}/${controller.soal.length}',
-              style: const TextStyle(fontFamily: 'MochiyPopOne'),
+              style: const TextStyle(
+                  fontFamily: 'MochiyPopOne', color: Colors.black87),
             )),
         centerTitle: true,
       ),
@@ -115,8 +116,10 @@ class TebakTempatView extends StatelessWidget {
                   filled: true,
                   fillColor: Colors.white,
                 ),
-                style:
-                    const TextStyle(fontFamily: 'MochiyPopOne', fontSize: 16),
+                style: const TextStyle(
+                    fontFamily: 'MochiyPopOne',
+                    fontSize: 16,
+                    color: Colors.black87),
               ),
               const SizedBox(height: 20),
               ElevatedButton(

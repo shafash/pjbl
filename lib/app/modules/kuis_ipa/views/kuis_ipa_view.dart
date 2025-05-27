@@ -65,16 +65,22 @@ class KuisIpaView extends StatelessWidget {
                   const SizedBox(height: 16),
                   ...options.map((opt) {
                     final isCorrect = c.answered.value && opt == correctAnswer;
-                    final isSelected = c.answered.value &&
-                        opt != correctAnswer &&
-                        c.correct.value == false &&
-                        opt == opt &&
+                    final isWrong = c.answered.value &&
+                        opt == c.selectedAnswer.value &&
                         opt != correctAnswer;
-                    final isWrongSelected = c.answered.value &&
-                        opt != correctAnswer &&
-                        c.correct.value == false &&
-                        opt == opt &&
-                        opt == opt;
+
+                    final bgColor = c.answered.value
+                        ? (isCorrect
+                            ? Colors.green
+                            : isWrong
+                                ? Colors.red.shade200
+                                : Colors.grey.shade200)
+                        : Colors.grey.shade200;
+
+                    final textColor =
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black;
 
                     return GestureDetector(
                       onTap: () {
@@ -87,19 +93,17 @@ class KuisIpaView extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 6),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: c.answered.value
-                              ? (opt == correctAnswer
-                                  ? Colors.green
-                                  : (c.correct.value == false &&
-                                          opt ==
-                                              c.soalList[c.currentIndex.value]
-                                                  ['selectedAnswer'])
-                                      ? Colors.red.shade200
-                                      : Colors.grey.shade200)
-                              : Colors.grey.shade200,
+                          color: bgColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text(opt, style: const TextStyle(fontSize: 16)),
+                        child: Text(
+                          opt,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: textColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     );
                   }).toList(),

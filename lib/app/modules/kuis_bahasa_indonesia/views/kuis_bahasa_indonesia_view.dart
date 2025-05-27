@@ -41,6 +41,7 @@ class KuisBahasaIndonesiaView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.find<KuisBahasaIndonesiaController>();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -96,11 +97,25 @@ class KuisBahasaIndonesiaView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ...options.map((opt) {
+                    final isSelected = c.selectedAnswer.value == opt;
                     final isCorrect = c.answered.value && opt == correctAnswer;
-                    final isWrong = c.answered.value &&
-                        opt != correctAnswer &&
-                        opt == opt &&
-                        opt != correctAnswer;
+                    final isWrong =
+                        c.answered.value && opt != correctAnswer && isSelected;
+
+                    Color bgColor =
+                        isDark ? Colors.grey.shade800 : Colors.white;
+                    if (c.answered.value) {
+                      if (isCorrect) {
+                        bgColor = Colors.green;
+                      } else if (isWrong) {
+                        bgColor = Colors.red.shade300;
+                      } else {
+                        bgColor = isDark
+                            ? Colors.grey.shade700
+                            : Colors.grey.shade200;
+                      }
+                    }
+
                     return GestureDetector(
                       onTap: () => c.answerQuestion(opt),
                       child: Container(
@@ -108,16 +123,22 @@ class KuisBahasaIndonesiaView extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 6),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: c.answered.value
-                              ? (isCorrect
-                                  ? Colors.green
-                                  : isWrong
-                                      ? Colors.red.shade200
-                                      : Colors.grey.shade200)
-                              : Colors.grey.shade200,
+                          color: bgColor,
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isSelected
+                                ? Colors.blueAccent
+                                : Colors.transparent,
+                            width: 2,
+                          ),
                         ),
-                        child: Text(opt, style: const TextStyle(fontSize: 16)),
+                        child: Text(
+                          opt,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: isDark ? Colors.white : Colors.black,
+                          ),
+                        ),
                       ),
                     );
                   }).toList(),

@@ -5,6 +5,8 @@ class KuisIpaController extends GetxController {
   final currentIndex = 0.obs;
   final answered = false.obs;
   final correct = false.obs;
+  final selectedAnswer = ''.obs;
+
   final confettiController =
       ConfettiController(duration: const Duration(seconds: 2));
 
@@ -52,6 +54,7 @@ class KuisIpaController extends GetxController {
 
   void answerQuestion(String selected) {
     if (answered.value) return;
+    selectedAnswer.value = selected;
     final correctAnswer = soalList[currentIndex.value]['answer']!;
     answered.value = true;
     correct.value = selected == correctAnswer;
@@ -69,6 +72,7 @@ class KuisIpaController extends GetxController {
       currentIndex.value++;
       answered.value = false;
       correct.value = false;
+      selectedAnswer.value = '';
     }
   }
 
